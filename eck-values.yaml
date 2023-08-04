@@ -19,12 +19,12 @@ eck-elasticsearch:
     - metadata:
         name: elasticsearch-data
       spec:
-        storageClassName: azure-disk  # Use the StorageClass created earlier
+        storageClassName: azure-eck-storage  # Use the StorageClass created earlier
         accessModes:
         - ReadWriteOnce
         resources:
           requests:
-            storage: 1Gi  # Change the storage size as needed
+            storage: 10Gi  # Change the storage size as needed
 
 eck-kibana:
   enabled: true
