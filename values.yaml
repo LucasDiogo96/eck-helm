@@ -16,9 +16,7 @@ eck-kibana:
       service:
         spec:
           type: LoadBalancer
-      tls:
-        selfSignedCertificate:
-          disabled: true
+
     podTemplate:
       spec:
         containers:
