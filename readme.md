@@ -4,6 +4,9 @@ Configuration
 ```
 kubectl create namespace elastic-stack
 
+kubectl apply -f https://raw.githubusercontent.com/LucasDiogo96/eck-helm/main/eck-elastic-default-user-secret.yaml
+
+
 helm repo add elastic https://helm.elastic.co && helm repo update
 
 helm upgrade --install elastic-operator elastic/eck-operator -n elastic-stack
