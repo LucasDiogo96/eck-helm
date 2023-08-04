@@ -25,12 +25,7 @@ eck-elasticsearch:
           resources:
             requests:
               storage: 5Gi
-          storageClassName: azureblob-nfs-premium  # Updated storage class name here
-          azureFile:
-            secretName: azure-storage-account-secret
-            shareName: data
-            readOnly: false
-            secretNamespace: elastic-stack
+          storageClassName: eck-elastic-storage  # Updated storage class name here
 
 eck-kibana:
   enabled: true
