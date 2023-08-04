@@ -4,9 +4,6 @@ eck-elasticsearch:
     eck.k8s.elastic.co/license: basic
   fullnameOverride: elasticsearch 
   count: 1
-  auth:
-    fileRealm:
-      - secretName: eck-default-user-credentials
   http:                  
     tls:
       selfSignedCertificate:
@@ -15,25 +12,21 @@ eck-elasticsearch:
     tls:
       selfSignedCertificate:
         disabled: true
+              node.store.allow_mmap: false
   nodeSets:
-    - name: masters
-      count: 1
-      config:
-        node.roles: ["master"]
-        xpack.ml.enabled: true
-    - name: data
-      count: 3
-      config:
-        node.roles: ["data", "ingest", "ml", "transform"]
-      volumeClaimTemplates:
-        - metadata:
-            name: elasticsearch-data
-          spec:
-            accessModes:
-              - ReadWriteOnce
-            resources:
-              requests:
-                storage: 10Gi
+  - name: default
+    count: 1
+    config:
+      node.store.allow_mmap: false
+    volumeClaimTemplates:
+    - metadata:
+        name: elasticsearch-data
+      spec:
+        accessModes:
+        - ReadWriteOnce
+        resources:
+          requests:
+            storage: 100Gi
 
 eck-kibana:
   enabled: true
