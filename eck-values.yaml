@@ -19,11 +19,12 @@ eck-elasticsearch:
     - metadata:
         name: elasticsearch-data
       spec:
+        storageClassName:  azureblob-nfs-premium # Use the StorageClass created earlier
         accessModes:
         - ReadWriteOnce
         resources:
           requests:
-            storage: 1Gi
+            storage: 1Gi  # Change the storage size as needed
 
 eck-kibana:
   enabled: true
