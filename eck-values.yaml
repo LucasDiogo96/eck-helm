@@ -16,31 +16,23 @@ eck-elasticsearch:
     config:
       node.store.allow_mmap: false
     volumeClaimTemplates:
-    - metadata:
-        name: elasticsearch-data # Do not change this name unless you set up a volume mount for the data path.
-        annotations:
-          volume.beta.kubernetes.io/storage-class: eck-storage-class
-      spec:
-        accessModes:
-        - ReadWriteMany
-        persistentVolumeReclaimPolicy: Delete  # If set as "Delete" container would be removed after pvc deletion
-        resources:
-          requests:
-            storage: 5Gi
-        storageClassName: eck-storage-class
-        csi:
-          driver: blob.csi.azure.com
-          readOnly: false
-          # make sure volumeid is unique for every identical storage blob container in the cluster
-          # character `#` is reserved for internal use and cannot be used in volumehandle
-          volumeHandle: eck-elastic-azure-storage
-          volumeAttributes:
-            resourceGroup: ncs-neogrid-cloud-storage-dev
-            storageAccount: ncsstorageaccount
-            containerName: data
-            protocol: nfs
+      - metadata:
+          name: elasticsearch-data
+        spec:
+          accessModes:
+            - ReadWriteMany
+          persistentVolumeReclaimPolicy: Delete
+          resources:
+            requests:
+              storage: 5Gi
+          storageClassName: azure-eck-storage
+          azureFile:
+            secretName: azure-storage-account-secret
+            shareName: data
+            readOnly: false
             secretNamespace: elastic-stack
-            secretName: azure-storage-account-secret 
+
+            
 eck-kibana:
   enabled: true
   fullnameOverride: kibana
