@@ -2,22 +2,12 @@ apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
   name: eck-elastic-storage
-provisioner: blob.csi.azure.com
+provisioner: kubernetes.io/azure-file
 parameters:
-  skuName: Standard_LRS  # Replace with your desired storage account type (Standard_LRS, Premium_LRS, Standard_GRS, Standard_RAGRS, etc.)
-  location: eastus2  # Replace with your desired Azure location
-  resourceGroup: ncs-neogrid-cloud-storage-dev  # Replace with your desired resource group name
-  storageAccount: eckstorageaccount  # Replace with your desired storage account name
-  protocol: nfs  # Use "fuse" for blobfuse mount or "nfs" for NFSv3 mount
-  containerName: data  # Replace with the existing container (directory) name or leave it empty for the driver to create a new one
-  allowBlobPublicAccess: false  # Set to true if you want to allow public access to all blobs or containers, otherwise set to false
-  # server: Existing storage account DNS domain name, if necessary
-  # storageEndpointSuffix: Specify Azure storage endpoint suffix, if necessary
-  # matchTags: Set to true if you want to match tags when finding a suitable storage account, otherwise set to false
-  # subscriptionID: Azure subscription ID if using blobfuse and you need to specify a subscription ID
-  # storeAccountKey: Kubernetes secret containing the store account key, if you want to provide it
-  # secretName: Specify the secret name to store the account key, if using storeAccountKey
-  # secretNamespace: Specify the namespace of the secret to store the account key, if using storeAccountKey
-  # isHnsEnabled: Set to true if you want to enable Hierarchical namespace for Azure Data Lake storage account
-  # mountPermissions: Specify the mounted folder permissions if using NFS protocol
+  skuName: Standard_LRS
+  location: eastus2
+  storageAccount: eckstorageaccount
+  protocol: nfs
+  allowBlobPublicAccess: false
+  resourceGroup: ncs-neogrid-cloud-storage-dev
 volumeBindingMode: Immediate
