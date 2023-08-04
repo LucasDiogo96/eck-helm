@@ -12,10 +12,6 @@ eck-kibana:
     count: 1
     elasticsearchRef:
       name: elasticsearch
-    http:
-      service:
-        spec:
-          type: LoadBalancer
 
 eck-agent:
   enabled: false
