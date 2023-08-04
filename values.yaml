@@ -1,61 +1,60 @@
----
 eck-elasticsearch:
   enabled: true
   annotations:
-      eck.k8s.elastic.co/license: basic
+    eck.k8s.elastic.co/license: basic
   fullnameOverride: elasticsearch 
   count: 1
   auth:
     fileRealm:
-    - secretName: eck-default-user-credentials
+      - secretName: eck-default-user-credentials
   http:
     tls:
       selfSignedCertificate:
         disabled: true
   nodeSets:
-  - name: masters
-    count: 1
-    config:
-      node.roles: ["master"]
-      xpack.ml.enabled: true
-  - name: data
-    count: 1
-    config:
-      node.roles: ["data", "ingest", "ml", "transform"]
-    volumeClaimTemplates:
-    - metadata:
-        name: elasticsearch-data
-      spec:
-        accessModes:
-        - ReadWriteOnce
-        resources:
-          requests:
-            storage: 10Gi
-     podTemplate:
+    - name: masters
+      count: 1
+      config:
+        node.roles: ["master"]
+        xpack.ml.enabled: true
+    - name: data
+      count: 1
+      config:
+        node.roles: ["data", "ingest", "ml", "transform"]
+      volumeClaimTemplates:
+        - metadata:
+            name: elasticsearch-data
           spec:
-            containers:
+            accessModes:
+              - ReadWriteOnce
+            resources:
+              requests:
+                storage: 10Gi
+      podTemplate:
+        spec:
+          containers:
             - name: elasticsearch
               readinessProbe:
                 exec:
                   command:
-                  - bash
-                  - -c
-                  - /mnt/elastic-internal/scripts/readiness-probe-script.sh
+                    - bash
+                    - -c
+                    - /mnt/elastic-internal/scripts/readiness-probe-script.sh
                 failureThreshold: 3
                 initialDelaySeconds: 10
                 periodSeconds: 12
                 successThreshold: 1
                 timeoutSeconds: 12
               env:
-              - name: READINESS_PROBE_TIMEOUT
-                value: "10"
-              - name: READINESS_PROBE_PROTOCOL
-                value: "http"
+                - name: READINESS_PROBE_TIMEOUT
+                  value: "10"
+                - name: READINESS_PROBE_PROTOCOL
+                  value: "http"
 
 eck-kibana:
   enabled: true
   annotations:
-      eck.k8s.elastic.co/license: basic
+    eck.k8s.elastic.co/license: basic
   spec:
     count: 1
     elasticsearchRef:
@@ -70,26 +69,23 @@ eck-kibana:
     podTemplate:
       spec:
         containers:
-        - name: kibana
-          env:
-            - name: NODE_OPTIONS
-              value: "--max-old-space-size=2048"
-          resources:
-            requests:
-              memory: 1Gi
-              cpu: 0.5
-            limits:
-              memory: 2.5Gi
-              cpu: 2
-    
+          - name: kibana
+            env:
+              - name: NODE_OPTIONS
+                value: "--max-old-space-size=2048"
+            resources:
+              requests:
+                memory: 1Gi
+                cpu: 0.5
+              limits:
+                memory: 2.5Gi
+                cpu: 2
 
 eck-agent:
   enabled: false
 
-
 eck-fleet-server:
   enabled: false
-
 
 eck-beats:
   enabled: false
