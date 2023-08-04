@@ -7,7 +7,7 @@ eck-elasticsearch:
   count: 1
   auth:
     fileRealm:
-    - secretName: eck-default-user
+    - secretName: eck-default-user-credentials
   nodeSets:
   - name: masters
     count: 3
