@@ -2,12 +2,8 @@ apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
   name: eck-elastic-storage
-provisioner: kubernetes.io/azure-file
+provisioner: blob.csi.azure.com
 parameters:
-  skuName: Standard_LRS
-  location: eastus2
-  storageAccount: eckstorageaccount
   protocol: nfs
-  allowBlobPublicAccess: false
-  resourceGroup: ncs-neogrid-cloud-storage-dev
+  tags: environment=Production
 volumeBindingMode: Immediate
