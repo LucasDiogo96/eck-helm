@@ -5,6 +5,11 @@ eck-elasticsearch:
       eck.k8s.elastic.co/license: basic
   fullnameOverride: elasticsearch 
   count: 1
+  spec:
+    transport:
+      service:
+        spec:
+          type: LoadBalancer
   nodeSets:
   - name: default
     count: 1
