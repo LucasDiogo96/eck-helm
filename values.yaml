@@ -12,7 +12,6 @@ eck-elasticsearch:
     tls:
       selfSignedCertificate:
         disabled: true
-              node.store.allow_mmap: false
   nodeSets:
   - name: default
     count: 1
