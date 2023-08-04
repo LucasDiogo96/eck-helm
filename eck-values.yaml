@@ -17,14 +17,16 @@ eck-elasticsearch:
       node.store.allow_mmap: false
     volumeClaimTemplates:
     - metadata:
-        name: elasticsearch-data
+        name: elasticsearch-data # Do not change this name unless you set up a volume mount for the data path.
+      annotations:
+        volume.beta.kubernetes.io/storage-class: azureblob-nfs-premium
       spec:
-        storageClassName: azure-eck-storage  # Use the StorageClass created earlier
         accessModes:
         - ReadWriteOnce
         resources:
           requests:
-            storage: 10Gi  # Change the storage size as needed
+            storage: 5Gi
+        storageClassName: azure-eck-storage
 
 eck-kibana:
   enabled: true
