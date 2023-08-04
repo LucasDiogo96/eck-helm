@@ -11,6 +11,10 @@ eck-elasticsearch:
     tls:
       selfSignedCertificate:
         disabled: true
+  transport:
+    tls:
+      selfSignedCertificate:
+        disabled: true
   nodeSets:
     - name: masters
       count: 1
