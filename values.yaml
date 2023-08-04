@@ -13,6 +13,18 @@ eck-elasticsearch:
       tls:
         selfSignedCertificate:
           disabled: true
+nodeSets:
+- name: masters
+  count: 1
+  volumeClaimTemplates:
+  - metadata:
+      name: elasticsearch-data
+    spec:
+      accessModes:
+      - ReadWriteOnce
+      resources:
+        requests:
+          storage: 10Gi
 
 eck-kibana:
   enabled: true
