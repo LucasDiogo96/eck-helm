@@ -7,7 +7,6 @@ kubectl create namespace elastic-stack
 helm repo add elastic https://helm.elastic.co && helm repo update
 
 helm upgrade --install elastic-operator elastic/eck-operator -n elastic-stack
-
 helm upgrade --install eck-stack elastic/eck-stack -f https://raw.githubusercontent.com/LucasDiogo96/eck-helm/main/eck-values.yaml -n elastic-stack
 
 kubectl annotate service -n elastic-stack kibana-kb-http service.beta.kubernetes.io/azure-load-balancer-internal="true"
