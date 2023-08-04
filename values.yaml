@@ -14,7 +14,7 @@ eck-elasticsearch:
         disabled: true
   nodeSets:
   - name: masters
-    count: 3
+    count: 1
     config:
       node.roles: ["master"]
       xpack.ml.enabled: true
@@ -31,6 +31,26 @@ eck-elasticsearch:
         resources:
           requests:
             storage: 10Gi
+     podTemplate:
+          spec:
+            containers:
+            - name: elasticsearch
+              readinessProbe:
+                exec:
+                  command:
+                  - bash
+                  - -c
+                  - /mnt/elastic-internal/scripts/readiness-probe-script.sh
+                failureThreshold: 3
+                initialDelaySeconds: 10
+                periodSeconds: 12
+                successThreshold: 1
+                timeoutSeconds: 12
+              env:
+              - name: READINESS_PROBE_TIMEOUT
+                value: "10"
+              - name: READINESS_PROBE_PROTOCOL
+                value: "https"
 
 eck-kibana:
   enabled: true
