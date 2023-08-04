@@ -60,6 +60,6 @@ eck-fleet-server:
   enabled: false
 
 eck-beats:
-  enabled: true
+  enabled: false
   annotations:
     eck.k8s.elastic.co/license: basic
