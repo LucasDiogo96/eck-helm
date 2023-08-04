@@ -21,18 +21,17 @@ eck-elasticsearch:
         spec:
           accessModes:
             - ReadWriteMany
-          persistentVolumeReclaimPolicy: Delete
+          persistentVolumeReclaimPolicy: Retain
           resources:
             requests:
               storage: 5Gi
-          storageClassName: azure-eck-storage
+          storageClassName: azureblob-nfs-premium  # Updated storage class name here
           azureFile:
             secretName: azure-storage-account-secret
             shareName: data
             readOnly: false
             secretNamespace: elastic-stack
 
-            
 eck-kibana:
   enabled: true
   fullnameOverride: kibana
@@ -61,13 +60,10 @@ eck-kibana:
             limits:
               memory: 2.5Gi
               cpu: 2
-eck-agent:
-  enabled: false
-
-eck-fleet-server:
-  enabled: false
-
-eck-beats:
-  enabled: false
-  annotations:
-    eck.k8s.elastic.co/license: basic
+          volumeMounts:
+            - name: kibana-data
+              mountPath: /usr/share/kibana/data
+        volumes:
+          - name: kibana-data
+            persistentVolumeClaim:
+              claimName: elasticsearch-data  # Using the same PVC claim name as in Elasticsearch
