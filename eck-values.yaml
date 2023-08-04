@@ -19,7 +19,7 @@ eck-elasticsearch:
     - metadata:
         name: elasticsearch-data
       spec:
-        storageClassName:  azureblob-nfs-premium # Use the StorageClass created earlier
+        storageClassName: azure-disk  # Use the StorageClass created earlier
         accessModes:
         - ReadWriteOnce
         resources:
