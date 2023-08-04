@@ -11,21 +11,21 @@ eck-elasticsearch:
         spec:
           type: LoadBalancer
   nodeSets:
-  - name: default
-    count: 1
-    config:
-      node.store.allow_mmap: false
-    volumeClaimTemplates:
-      - metadata:
-          name: elasticsearch-data
-        spec:
-          accessModes:
-            - ReadWriteMany
-          persistentVolumeReclaimPolicy: Retain
-          resources:
-            requests:
-              storage: 5Gi
-          storageClassName: eck-elastic-storage  # Updated storage class name here
+    - name: default
+      count: 1
+      config:
+        node.store.allow_mmap: false
+      volumeClaimTemplates:
+        - metadata:
+            name: elasticsearch-data
+          spec:
+            accessModes:
+              - ReadWriteMany
+            resources:
+              requests:
+                storage: 5Gi
+            storageClassName: eck-elastic-storage  # Updated storage class name here
+            persistentVolumeReclaimPolicy: Retain  # Reclaim policy defined at the PVC level
 
 eck-kibana:
   enabled: true
