@@ -4,13 +4,13 @@ eck-elasticsearch:
     eck.k8s.elastic.co/license: basic
   fullnameOverride: elasticsearch 
   count: 1
-#  auth:
-#    fileRealm:
-#      - secretName: eck-default-user-credentials
-#  http:                  
-#    tls:
-#      selfSignedCertificate:
-#        disabled: true
+  auth:
+    fileRealm:
+      - secretName: eck-default-user-credentials
+  http:                  
+    tls:
+      selfSignedCertificate:
+        disabled: true
   nodeSets:
     - name: masters
       count: 1
@@ -18,7 +18,7 @@ eck-elasticsearch:
         node.roles: ["master"]
         xpack.ml.enabled: true
     - name: data
-      count: 1
+      count: 3
       config:
         node.roles: ["data", "ingest", "ml", "transform"]
       volumeClaimTemplates:
@@ -43,9 +43,9 @@ eck-kibana:
       service:
         spec:
           type: LoadBalancer
-#      tls:
-#        selfSignedCertificate:
-#          disabled: true
+      tls:
+        selfSignedCertificate:
+          disabled: true
     podTemplate:
       spec:
         containers:
