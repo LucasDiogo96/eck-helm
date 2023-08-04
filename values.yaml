@@ -8,6 +8,14 @@ eck-elasticsearch:
   auth:
     fileRealm:
     - secretName: eck-default-user-credentials
+  spec:
+    http:
+      service:
+        spec:
+          type: LoadBalancer
+      tls:
+        selfSignedCertificate:
+          disabled: true
   nodeSets:
   - name: masters
     count: 3
