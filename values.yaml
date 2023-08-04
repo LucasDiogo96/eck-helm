@@ -12,7 +12,7 @@ eck-elasticsearch:
     tls:
       selfSignedCertificate:
         disabled: true
- nodeSets:
+  nodeSets:
   - name: default
     count: 1
     config:
