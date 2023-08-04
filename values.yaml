@@ -3,30 +3,7 @@ eck-elasticsearch:
   annotations:
     eck.k8s.elastic.co/license: basic
   fullnameOverride: elasticsearch 
-  count: 1
-  http:                  
-    tls:
-      selfSignedCertificate:
-        disabled: true
-  transport:
-    tls:
-      selfSignedCertificate:
-        disabled: true
-nodeSets:  # Correct indentation for 'nodeSets'
-  - name: default
-    count: 1
-    config:
-      node.store.allow_mmap: false
-    volumeClaimTemplates:
-    - metadata:
-        name: elasticsearch-data
-      spec:
-        accessModes:
-        - ReadWriteOnce
-        resources:
-          requests:
-            storage: 10Gi
-
+ 
 eck-kibana:
   enabled: true
   annotations:
