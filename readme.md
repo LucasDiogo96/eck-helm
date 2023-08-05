@@ -24,7 +24,6 @@ Extra commands: Uninstall
 ```
 helm uninstall eck-stack -n elastic-stack
 helm uninstall elastic-operator -n elastic-stack
-
 ```
 
 
