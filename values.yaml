@@ -3,6 +3,13 @@ eck-elasticsearch:
   annotations:
     eck.k8s.elastic.co/license: basic
   fullnameOverride: elasticsearch
+  http:
+    service:
+      spec:
+        type: LoadBalancer
+    tls:
+      selfSignedCertificate:
+        disabled: true
   nodeSets:
   - name: default
     count: 1
