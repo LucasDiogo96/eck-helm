@@ -38,6 +38,7 @@ Example:
 ```
 6 - Integrate a .NET application:
 
+#### Add packages
 ```
 dotnet add package Serilog.AspNetCore
 dotnet add package Serilog.Enrichers.Environment
@@ -46,6 +47,7 @@ dotnet add package Serilog.Sinks.Debug
 dotnet add package Serilog.Sinks.Elasticsearch
 ```
 
+#### Configure application
 ```cs
 using Microsoft.AspNetCore.HttpLogging;
 using Serilog;
