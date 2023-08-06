@@ -26,17 +26,6 @@ eck-elasticsearch:
             storage: 10Gi
         storageClassName: elastic-storage-class 
         persistentVolumeReclaimPolicy: Retain
-        csi:
-          driver: blob.csi.azure.com
-          readOnly: false
-          volumeHandle: elasticstoragelog # Substitua "unique-volumeid" por um identificador único para o volume
-          volumeAttributes:
-            resourceGroup: ncs-neogrid-cloud-storage-dev  # Especifique o nome do grupo de recursos do Azure
-            storageAccount: elasticstoragelog  # Especifique o nome da conta de armazenamento do Azure
-            containerName: elasticsearch-data  # Especifique o nome do contêiner de Blob existente
-            protocol: nfs
-            secretName: elastic-storage-account-secret  # Especifique o nome da secret que contém as credenciais
-            secretNamespace: elastic-stack  # Especifique o namespace da secret (padrão é "default" se não especificado)
 
 eck-kibana:
   enabled: true
