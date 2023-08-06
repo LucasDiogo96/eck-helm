@@ -28,12 +28,13 @@ kubectl get secret elasticsearch-es-elastic-user -n elk -o go-template='{{.data.
 
 6 - Create an application user to send logs:
 
-- Go to Stack management -> Users -> Create User in Kibana.
-- Provide the username, password, and full name.
+- Go to Stack management -> API Keys -> Create API Key
+- Provide the name
+- View in JSON Format and copy 
 
+Example:
 ```
-Username: elastic
-Password: elastic
+- {"id":"8MTyyIkBFBK7tlyQpncP","name":"app-key","api_key":"FilNNaw8TqaYdxXvGu7JFA","encoded":"OE1UeXlJa0JGQks3dGx5UXBuY1A6RmlsTk5hdzhUcWFZZHhYdkd1N0pGQQ=="}
 ```
 6 - Integrate a .NET application:
 
@@ -92,7 +93,7 @@ void ConfigureLogging()
 
     ElasticsearchSinkOptions ConfigureElasticSink(IConfigurationRoot configuration, string environment)
     {
-        var options = new ElasticsearchSinkOptions(new Uri("http://my-elastic-ip:9200"))
+        var options = new ElasticsearchSinkOptions(new Uri("http://[ELASTIC-IP]:9200"))
         {
             FailureCallback = e => Console.WriteLine("Unable to submit event " + e.MessageTemplate),
             EmitEventFailure = EmitEventFailureHandling.WriteToSelfLog |
@@ -103,7 +104,7 @@ void ConfigureLogging()
             
         };
 
-        options.ModifyConnectionSettings = x => x.BasicAuthentication("elastic", "elastic");
+        options.ModifyConnectionSettings = x => x.ApiKeyAuthentication("[ID]", "[APIKEY]");
         return options;
     }
 
@@ -111,7 +112,7 @@ void ConfigureLogging()
 }
 ```
 
-Please make sure to adjust any placeholders like my-elastic-ip in the code and instructions to the appropriate values for your specific deployment. Additionally, consider adding more context and explanations if needed for users who may be less familiar with the setup.
+Make sure to replace [ELASTIC-IP] with the actual Elastic Search Load Balancer IP, and [ID] with your API Key ID, and [APIKEY] with the respective API Key.
 
 ## Uninstall
 
