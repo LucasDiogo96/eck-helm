@@ -8,7 +8,7 @@ reclaimPolicy: Retain   # Retain or Delete
 volumeBindingMode: WaitForFirstConsumer
 allowVolumeExpansion: true
 parameters:
-  protocol: "nfs"
+  protocol: nfs
   tags: environment=Development
   skuName: Standard_LRS
   location: eastus2
