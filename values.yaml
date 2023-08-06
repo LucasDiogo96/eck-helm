@@ -3,9 +3,6 @@ eck-elasticsearch:
   annotations:
     eck.k8s.elastic.co/license: basic
   fullnameOverride: elasticsearch
-  auth:
-    fileRealm:
-    - secretName: eck-default-user-credentials
   http:
     service:
       spec:
