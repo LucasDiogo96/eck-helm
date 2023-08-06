@@ -24,7 +24,7 @@ eck-elasticsearch:
         resources:
           requests:
             storage: 10Gi
- 
+        storageClassName: elastic-storage-class 
 eck-kibana:
   enabled: true
   annotations:
