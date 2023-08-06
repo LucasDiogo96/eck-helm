@@ -5,19 +5,16 @@ metadata:
   namespace: elastic-stack
 provisioner: blob.csi.azure.com
 parameters:
-  skuName: Standard_LRS  # available values: Standard_LRS, Premium_LRS, Standard_GRS, Standard_RAGRS
+  protocol: nfs
+  tags: environment=Development
+  skuName: Standard_LRS
   location: eastus2
-  containerName: elastic-data
-reclaimPolicy: Delete
-volumeBindingMode: Immediate
+  resourceGroup: ncs-neogrid-cloud-storage-dev
+  containerName: elasticsearch-data
+  storageAccount: elasticstoragelog
+  storeAccountKey: true
+  secretName: elastic-storage-account-secret
+  secretNamespace: elastic-stack
+  isHnsEnabled: true
+volumeBindingMode: WaitForFirstConsumer
 allowVolumeExpansion: true
-mountOptions:
-  - -o allow_other
-  - --file-cache-timeout-in-seconds=120
-  - --use-attr-cache=true
-  - --cancel-list-on-mount-seconds=10  # prevent billing charges on mounting
-  - -o attr_timeout=120
-  - -o entry_timeout=120
-  - -o negative_timeout=120
-  - --log-level=LOG_WARNING  # LOG_WARNING, LOG_INFO, LOG_DEBUG
-  - --cache-size-mb=1000  # Default will be 80% of available memory, eviction will happen beyond that.
