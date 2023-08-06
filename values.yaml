@@ -3,10 +3,6 @@ eck-elasticsearch:
   annotations:
     eck.k8s.elastic.co/license: basic
   fullnameOverride: elasticsearch
-  transport:
-    service:
-      spec:
-        type: LoadBalancer
   http:
     service:
       spec:
