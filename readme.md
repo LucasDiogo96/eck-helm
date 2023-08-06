@@ -17,6 +17,8 @@ helm upgrade --install eck-stack elastic/eck-stack -f https://raw.githubusercont
 4 - Add annotations
 ```
 kubectl annotate service -n elastic-stack eck-stack-eck-kibana-kb-http service.beta.kubernetes.io/azure-load-balancer-internal="true"
+kubectl annotate service -n elastic-stack elasticsearch-es-http service.beta.kubernetes.io/azure-load-balancer-internal="true"
+
 ```
 
 Extra commands: Uninstall
