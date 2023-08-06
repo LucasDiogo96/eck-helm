@@ -12,6 +12,6 @@ parameters:
   protocol: nfs
   secretName: elastic-storage-account-secret  # Especifique o nome da secret que contém as credenciais
   secretNamespace: elastic-stack  # Especifique o namespace da secret (padrão é "default" se não especificado)
-volumeBindingMode: Immediate
+volumeBindingMode: WaitForFirstConsumer
 reclaimPolicy: Retain
 allowVolumeExpansion: true
