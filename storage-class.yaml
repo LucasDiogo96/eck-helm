@@ -12,9 +12,8 @@ parameters:
   resourceGroup: ncs-neogrid-cloud-storage-dev
   containerName: elasticsearch-data
   storageAccount: elasticstoragelog
-  storeAccountKey: "true"
+  storeAccountKey: true
   secretName: elastic-storage-account-secret
   secretNamespace: elastic-stack
-  isHnsEnabled: "true"  # Change true to "true" as a string representation
 volumeBindingMode: WaitForFirstConsumer
 allowVolumeExpansion: true
