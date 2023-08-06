@@ -3,7 +3,7 @@ kind: PersistentVolume
 metadata:
   annotations:
     pv.kubernetes.io/provisioned-by: blob.csi.azure.com
-  name: pv-blob
+  name: elasticsearch-data
   namespace: elastic-stack
 spec:
   capacity:
