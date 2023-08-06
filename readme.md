@@ -38,6 +38,14 @@ Example:
 ```
 6 - Integrate a .NET application:
 
+```
+dotnet add package Serilog.AspNetCore
+dotnet add package Serilog.Enrichers.Environment
+dotnet add package Serilog.Exceptions
+dotnet add package Serilog.Sinks.Debug
+dotnet add package Serilog.Sinks.Elasticsearch
+```
+
 ```cs
 using Microsoft.AspNetCore.HttpLogging;
 using Serilog;
