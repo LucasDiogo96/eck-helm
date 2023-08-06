@@ -15,6 +15,5 @@ parameters:
   resourceGroup: ncs-neogrid-cloud-storage-dev
   containerName: elasticsearch-data
   storageAccount: elasticstoragelog
-  storeAccountKey: true
   secretName: elastic-storage-account-secret
   secretNamespace: elastic-stack
