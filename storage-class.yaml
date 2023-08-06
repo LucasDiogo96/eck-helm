@@ -12,7 +12,7 @@ parameters:
   resourceGroup: ncs-neogrid-cloud-storage-dev
   containerName: elasticsearch-data
   storageAccount: elasticstoragelog
-  storeAccountKey: true
+  storeAccountKey: "true"  # Change "true" to a string representation
   secretName: elastic-storage-account-secret
   secretNamespace: elastic-stack
   isHnsEnabled: true
