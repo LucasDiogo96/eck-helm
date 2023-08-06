@@ -1,11 +1,14 @@
-apiVersion: storage.k8s.io/v1
 kind: StorageClass
+apiVersion: storage.k8s.io/v1
 metadata:
   name: elastic-storage-class
   namespace: elastic-stack
 provisioner: blob.csi.azure.com
+reclaimPolicy: Retain   # Retain or Delete
+volumeBindingMode: WaitForFirstConsumer
+allowVolumeExpansion: true
 parameters:
-  protocol: nfs
+  protocol: "nfs"
   tags: environment=Development
   skuName: Standard_LRS
   location: eastus2
@@ -15,5 +18,3 @@ parameters:
   storeAccountKey: true
   secretName: elastic-storage-account-secret
   secretNamespace: elastic-stack
-volumeBindingMode: WaitForFirstConsumer
-allowVolumeExpansion: true
