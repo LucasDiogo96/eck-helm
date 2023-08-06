@@ -1,3 +1,12 @@
+# Introduction
+This document provides instructions on how to configure and integrate the Elastic Cloud on Kubernetes (ECK) stack and operator with a .NET application to send logs. The Elastic Cloud on Kubernetes allows you to run Elasticsearch, Kibana, and other Elastic Stack components on Kubernetes clusters easily.
+
+## Requirements
+Before proceeding with the installation and integration, ensure you have the following prerequisites:
+
+- A running Kubernetes cluster.
+- kubectl CLI installed and configured to connect to your Kubernetes cluster.
+- Helm v3 or later installed.
 
 ## Configuration
 
