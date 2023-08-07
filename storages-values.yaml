@@ -20,10 +20,6 @@ eck-elasticsearch:
       spec:
         containers:
         - name: elasticsearch
-          volumeMounts:
-            - mountPath: /usr/share/elasticsearch/data
-              subPath: elastic-data
-              name: elastic-data-mount
           volumes:
           - name: elasticsearch-data
             persistentVolumeClaim:
@@ -52,10 +48,6 @@ eck-elasticsearch:
       spec:
         containers:
         - name: elasticsearch
-          volumeMounts:
-            - mountPath: /usr/share/elasticsearch/data
-              subPath: elastic-data
-              name: elastic-data-mount
           volumes:
           - name: elasticsearch-data
             persistentVolumeClaim:
@@ -84,10 +76,6 @@ eck-elasticsearch:
       spec:
         containers:
         - name: elasticsearch
-          volumeMounts:
-            - mountPath: /usr/share/elasticsearch/data
-              subPath: elastic-data
-              name: elastic-data-mount
           volumes:
           - name: elasticsearch-data
             persistentVolumeClaim:
@@ -116,10 +104,6 @@ eck-elasticsearch:
       spec:
         containers:
         - name: elasticsearch
-          volumeMounts:
-            - mountPath: /usr/share/elasticsearch/data
-              subPath: elastic-data
-              name: elastic-data-mount
           volumes:
           - name: elasticsearch-data
             persistentVolumeClaim:
