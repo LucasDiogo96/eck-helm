@@ -35,7 +35,7 @@ eck-elasticsearch:
         resources:
           requests:
             storage: 10Gi
-        #storageClassName: elastic-storage-class 
+        storageClassName: elastic-storage-class 
         persistentVolumeReclaimPolicy: Retain
 
 eck-kibana:
