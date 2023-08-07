@@ -21,9 +21,9 @@ eck-elasticsearch:
         containers:
         - name: elasticsearch
           volumeMounts:
-          - mountPath: /usr/share/elasticsearch/data
-            subPath: elastic-data
-            name: elastic-data-mount
+            - mountPath: /usr/share/elasticsearch/data
+              subPath: elastic-data
+              name: elastic-data-mount
           resources:
             limits:
               memory: 1Gi
@@ -31,10 +31,6 @@ eck-elasticsearch:
     volumeClaimTemplates:
     - metadata:
         name: elasticsearch-data
-        volumeMounts:
-        - mountPath: /usr/share/elasticsearch/data
-          subPath: elastic-data
-          name: elastic-data-mount   
       spec:
         accessModes:
         - ReadWriteOnce
@@ -52,6 +48,10 @@ eck-elasticsearch:
       spec:
         containers:
         - name: elasticsearch
+          volumeMounts:
+            - mountPath: /usr/share/elasticsearch/data
+              subPath: elastic-data
+              name: elastic-data-mount
           resources:
             limits:
               memory: 1Gi
@@ -59,10 +59,6 @@ eck-elasticsearch:
     volumeClaimTemplates:
     - metadata:
         name: elasticsearch-data
-        volumeMounts:
-        - mountPath: /usr/share/elasticsearch/data
-          subPath: elastic-data
-          name: elastic-data-mount   
       spec:
         accessModes:
         - ReadWriteOnce
@@ -81,6 +77,10 @@ eck-elasticsearch:
       spec:
         containers:
         - name: elasticsearch
+          volumeMounts:
+            - mountPath: /usr/share/elasticsearch/data
+              subPath: elastic-data
+              name: elastic-data-mount
           resources:
             limits:
               memory: 1Gi
@@ -106,6 +106,10 @@ eck-elasticsearch:
       spec:
         containers:
         - name: elasticsearch
+          volumeMounts:
+            - mountPath: /usr/share/elasticsearch/data
+              subPath: elastic-data
+              name: elastic-data-mount
           resources:
             limits:
               memory: 1Gi
