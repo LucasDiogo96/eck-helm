@@ -34,7 +34,6 @@ eck-elasticsearch:
         resources:
           requests:
             storage: 10Gi
-        storageClassName: ""
 
   - name: hot
     count: 1
@@ -59,7 +58,6 @@ eck-elasticsearch:
         resources:
           requests:
             storage: 10Gi
-        storageClassName: ""
 
   - name: warm
     count: 1
@@ -84,7 +82,6 @@ eck-elasticsearch:
         resources:
           requests:
             storage: 10Gi
-        storageClassName: ""
 
   - name: cold
     count: 1
@@ -109,7 +106,6 @@ eck-elasticsearch:
         resources:
           requests:
             storage: 10Gi
-        storageClassName: ""
 
 eck-kibana:
   enabled: true
