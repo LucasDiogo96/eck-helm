@@ -45,8 +45,8 @@ eck-elasticsearch:
         - name: elasticsearch
           resources:
             limits:
-              memory: 16Gi
-              cpu: 4
+              memory: 1Gi
+              cpu: 2
     volumeClaimTemplates:
     - metadata:
         name: elasticsearch-data
@@ -55,7 +55,7 @@ eck-elasticsearch:
         - ReadWriteOnce
         resources:
           requests:
-            storage: 1Ti
+            storage: 10Gi
 
   - name: warm
     count: 1
@@ -68,7 +68,7 @@ eck-elasticsearch:
         - name: elasticsearch
           resources:
             limits:
-              memory: 16Gi
+              memory: 1Gi
               cpu: 2
     volumeClaimTemplates:
     - metadata:
@@ -78,7 +78,7 @@ eck-elasticsearch:
         - ReadWriteOnce
         resources:
           requests:
-            storage: 10Ti
+            storage: 10Gi
 
   - name: cold
     count: 1
@@ -91,7 +91,7 @@ eck-elasticsearch:
         - name: elasticsearch
           resources:
             limits:
-              memory: 8Gi
+              memory: 1Gi
               cpu: 2
     volumeClaimTemplates:
     - metadata:
@@ -101,7 +101,7 @@ eck-elasticsearch:
         - ReadWriteOnce
         resources:
           requests:
-            storage: 20Ti
+            storage: 10Gi
 
 eck-kibana:
   enabled: true
