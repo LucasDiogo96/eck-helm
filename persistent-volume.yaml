@@ -3,7 +3,7 @@ kind: PersistentVolume
 metadata:
   annotations:
     pv.kubernetes.io/provisioned-by: blob.csi.azure.com
-  name: elasticsearch-data
+  name: eck-data-pv
   namespace: elastic-stack
 spec:
   capacity:
@@ -11,16 +11,19 @@ spec:
   accessModes:
     - ReadWriteMany
   persistentVolumeReclaimPolicy: Retain  # If set as "Delete" container would be removed after pvc deletion
+  volumeBindingMode: WaitForFirstConsumer
+  allowVolumeExpansion: true
   storageClassName: elastic-storage-class
   csi:
     driver: blob.csi.azure.com
     readOnly: false
     # make sure volumeid is unique for every identical storage blob container in the cluster
     # character `#` is reserved for internal use and cannot be used in volumehandle
-    volumeHandle: unique-volumeid
+    volumeHandle: elasticstoragelog-elasticsearch-data
     volumeAttributes:
       resourceGroup: ncs-neogrid-cloud-storage-dev
-      containerName: data
+      storageAccount: elasticstoragelog
+      containerName: elasticsearch-data
       protocol: nfs
-
-      
+      secretName: elastic-storage-account-secret
+      secretNamespace: elastic-stack
