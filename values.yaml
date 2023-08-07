@@ -28,7 +28,8 @@ eck-elasticsearch:
             value: "-Xms4g -Xmx4g"
     volumeClaimTemplates:
     - metadata:
-        name: elasticsearch-data
+        name:  elasticsearch-data
+        namespace: elastic-stack
       spec:
         accessModes:
         - ReadWriteOnce
