@@ -32,7 +32,7 @@ eck-elasticsearch:
         - ReadWriteOnce
         resources:
           requests:
-            storage: 1Ti
+            storage: 10Gi
 
   - name: hot
     count: 1
