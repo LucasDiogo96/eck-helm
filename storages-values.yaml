@@ -20,10 +20,6 @@ eck-elasticsearch:
       spec:
         containers:
         - name: elasticsearch
-          volumes:
-          - name: elasticsearch-data
-            persistentVolumeClaim:
-              claimName: elasticsearch-data   
           resources:
             limits:
               memory: 1Gi
@@ -31,13 +27,16 @@ eck-elasticsearch:
     volumeClaimTemplates:
     - metadata:
         name: elasticsearch-data
+        namespace: elastic-stack 
       spec:
         accessModes:
         - ReadWriteOnce
         resources:
           requests:
             storage: 10Gi
-        volumeName: elastic-storage-pv
+        claimRef:
+          namespace: elastic-stack
+          name: elasticsearch-data
 
   - name: hot
     count: 1
@@ -48,10 +47,6 @@ eck-elasticsearch:
       spec:
         containers:
         - name: elasticsearch
-          volumes:
-          - name: elasticsearch-data
-            persistentVolumeClaim:
-              claimName: elasticsearch-data     
           resources:
             limits:
               memory: 1Gi
@@ -59,13 +54,16 @@ eck-elasticsearch:
     volumeClaimTemplates:
     - metadata:
         name: elasticsearch-data
+        namespace: elastic-stack 
       spec:
         accessModes:
         - ReadWriteOnce
         resources:
           requests:
             storage: 10Gi
-        volumeName: elastic-storage-pv
+        claimRef:
+          namespace: elastic-stack
+          name: elasticsearch-data
 
   - name: warm
     count: 1
@@ -76,10 +74,6 @@ eck-elasticsearch:
       spec:
         containers:
         - name: elasticsearch
-          volumes:
-          - name: elasticsearch-data
-            persistentVolumeClaim:
-              claimName: elasticsearch-data   
           resources:
             limits:
               memory: 1Gi
@@ -87,13 +81,16 @@ eck-elasticsearch:
     volumeClaimTemplates:
     - metadata:
         name: elasticsearch-data
+        namespace: elastic-stack 
       spec:
         accessModes:
         - ReadWriteOnce
         resources:
           requests:
             storage: 10Gi
-        volumeName: elastic-storage-pv
+        claimRef:
+          namespace: elastic-stack
+          name: elasticsearch-data
 
   - name: cold
     count: 1
@@ -104,10 +101,6 @@ eck-elasticsearch:
       spec:
         containers:
         - name: elasticsearch
-          volumes:
-          - name: elasticsearch-data
-            persistentVolumeClaim:
-              claimName: elasticsearch-data   
           resources:
             limits:
               memory: 1Gi
@@ -115,13 +108,16 @@ eck-elasticsearch:
     volumeClaimTemplates:
     - metadata:
         name: elasticsearch-data
+        namespace: elastic-stack 
       spec:
         accessModes:
         - ReadWriteOnce
         resources:
           requests:
             storage: 10Gi
-        volumeName: elastic-storage-pv
+        claimRef:
+          namespace: elastic-stack
+          name: elasticsearch-data
 
 eck-kibana:
   enabled: true
