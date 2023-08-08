@@ -11,8 +11,6 @@ parameters:
   storageAccount: elasticstoragelog
   protocol: fuse
   containerName: elasticsearch-data
-  allowBlobPublicAccess: false
-  storeAccountKey: true
   secretName: elastic-storage-account
   secretNamespace: elastic-stack
   isHnsEnabled: true
