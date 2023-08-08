@@ -1,0 +1,11 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: elastic-warm-storage
+  namespace: elastic-stack
+provisioner: blob.csi.azure.com
+parameters:
+  protocol: nfs
+reclaimPolicy: Delete
+volumeBindingMode: WaitForFirstConsumer
+allowVolumeExpansion: true
