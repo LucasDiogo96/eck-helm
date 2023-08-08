@@ -21,7 +21,7 @@ spec:
     volumeAttributes:
       resourceGroup: ncs-neogrid-cloud-storage-dev
       storageAccount: elasticstoragelog
-      containerName: containerName
+      containerName: data
       protocol: nfs
       secretName: elastic-storage-account
       secretNamespace: elastic-stack
