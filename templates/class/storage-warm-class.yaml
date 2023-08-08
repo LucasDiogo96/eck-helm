@@ -6,6 +6,6 @@ metadata:
 provisioner: blob.csi.azure.com
 parameters:
   protocol: nfs
-reclaimPolicy: Delete
+reclaimPolicy: Retain
 volumeBindingMode: WaitForFirstConsumer
 allowVolumeExpansion: true
