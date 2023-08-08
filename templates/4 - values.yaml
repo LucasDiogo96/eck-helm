@@ -12,7 +12,7 @@ eck-elasticsearch:
         disabled: true
   nodeSets:
   - name: master
-    count: 2
+    count: 1
     config:
       node.roles: ["master"]
       node.store.allow_mmap: false
@@ -34,7 +34,9 @@ eck-elasticsearch:
         resources:
           requests:
             storage: 10Gi
+        volumeName: pv-elasticsearch-data-master
         storageClassName: elastic-storage
+
   - name: hot
     count: 1
     config:
@@ -58,6 +60,7 @@ eck-elasticsearch:
         resources:
           requests:
             storage: 10Gi
+        volumeName: pv-elasticsearch-data-hot
         storageClassName: elastic-storage
 
   - name: warm
@@ -83,6 +86,7 @@ eck-elasticsearch:
         resources:
           requests:
             storage: 10Gi
+        volumeName: pv-elasticsearch-data-warm
         storageClassName: elastic-storage
 
   - name: cold
@@ -108,6 +112,7 @@ eck-elasticsearch:
         resources:
           requests:
             storage: 10Gi
+        volumeName: pv-elasticsearch-data-cold
         storageClassName: elastic-storage
 
 eck-kibana:
