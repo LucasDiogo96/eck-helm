@@ -1,0 +1,11 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: elastic-cold-storage
+  namespace: elastic-stack
+provisioner: blob.csi.azure.com
+parameters:
+  protocol: nfs
+reclaimPolicy: Retain
+volumeBindingMode: WaitForFirstConsumer
+allowVolumeExpansion: true
