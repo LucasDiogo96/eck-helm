@@ -12,7 +12,7 @@ eck-elasticsearch:
         disabled: true
   nodeSets:
   - name: master
-    count: 1
+    count: 2
     config:
       node.roles: ["master"]
       node.store.allow_mmap: false
