@@ -10,13 +10,11 @@ spec:
     storage: 10Gi
   accessModes:
     - ReadWriteOnce
-  persistentVolumeReclaimPolicy: Retain  # If set as "Delete" container would be removed after pvc deletion
+  persistentVolumeReclaimPolicy: Retain
   storageClassName: elastic-storage
   csi:
     driver: blob.csi.azure.com
     readOnly: false
-    # make sure volumeid is unique for every identical storage blob container in the cluster
-    # character `#` is reserved for internal use and cannot be used in volumehandle
     volumeHandle: elasticstoragelog-elasticstoragelog
     volumeAttributes:
       resourceGroup: ncs-neogrid-cloud-storage-dev
@@ -27,7 +25,6 @@ spec:
       secretNamespace: elastic-stack
 
 ---
-
 apiVersion: v1
 kind: PersistentVolume
 metadata:
@@ -40,13 +37,11 @@ spec:
     storage: 10Gi
   accessModes:
     - ReadWriteOnce
-  persistentVolumeReclaimPolicy: Retain  # If set as "Delete" container would be removed after pvc deletion
+  persistentVolumeReclaimPolicy: Retain
   storageClassName: elastic-storage
   csi:
     driver: blob.csi.azure.com
     readOnly: false
-    # make sure volumeid is unique for every identical storage blob container in the cluster
-    # character `#` is reserved for internal use and cannot be used in volumehandle
     volumeHandle: elasticstoragelog-elasticstoragelog
     volumeAttributes:
       resourceGroup: ncs-neogrid-cloud-storage-dev
@@ -69,13 +64,11 @@ spec:
     storage: 10Gi
   accessModes:
     - ReadWriteOnce
-  persistentVolumeReclaimPolicy: Retain  # If set as "Delete" container would be removed after pvc deletion
+  persistentVolumeReclaimPolicy: Retain
   storageClassName: elastic-storage
   csi:
     driver: blob.csi.azure.com
     readOnly: false
-    # make sure volumeid is unique for every identical storage blob container in the cluster
-    # character `#` is reserved for internal use and cannot be used in volumehandle
     volumeHandle: elasticstoragelog-elasticstoragelog
     volumeAttributes:
       resourceGroup: ncs-neogrid-cloud-storage-dev
@@ -86,7 +79,6 @@ spec:
       secretNamespace: elastic-stack
 
 ---
-
 apiVersion: v1
 kind: PersistentVolume
 metadata:
@@ -99,13 +91,11 @@ spec:
     storage: 10Gi
   accessModes:
     - ReadWriteOnce
-  persistentVolumeReclaimPolicy: Retain  # If set as "Delete" container would be removed after pvc deletion
+  persistentVolumeReclaimPolicy: Retain
   storageClassName: elastic-storage
   csi:
     driver: blob.csi.azure.com
     readOnly: false
-    # make sure volumeid is unique for every identical storage blob container in the cluster
-    # character `#` is reserved for internal use and cannot be used in volumehandle
     volumeHandle: elasticstoragelog-elasticstoragelog
     volumeAttributes:
       resourceGroup: ncs-neogrid-cloud-storage-dev
