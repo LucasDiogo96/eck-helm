@@ -3,7 +3,7 @@ kind: PersistentVolume
 metadata:
   annotations:
     pv.kubernetes.io/provisioned-by: blob.csi.azure.com
-  name: pv-elasticsearch-data
+  name: pv-elasticsearch-data-master
   namespace: elastic-stack
 spec:
   capacity:
@@ -21,7 +21,96 @@ spec:
     volumeAttributes:
       resourceGroup: ncs-neogrid-cloud-storage-dev
       storageAccount: elasticstoragelog
-      containerName: data
+      containerName: master
+      protocol: nfs
+      secretName: elastic-storage-account
+      secretNamespace: elastic-stack
+
+---
+
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  annotations:
+    pv.kubernetes.io/provisioned-by: blob.csi.azure.com
+  name: pv-elasticsearch-data-hot
+  namespace: elastic-stack
+spec:
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain  # If set as "Delete" container would be removed after pvc deletion
+  storageClassName: elastic-storage
+  csi:
+    driver: blob.csi.azure.com
+    readOnly: false
+    # make sure volumeid is unique for every identical storage blob container in the cluster
+    # character `#` is reserved for internal use and cannot be used in volumehandle
+    volumeHandle: elasticstoragelog-elasticstoragelog
+    volumeAttributes:
+      resourceGroup: ncs-neogrid-cloud-storage-dev
+      storageAccount: elasticstoragelog
+      containerName: hot
+      protocol: nfs
+      secretName: elastic-storage-account
+      secretNamespace: elastic-stack
+
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  annotations:
+    pv.kubernetes.io/provisioned-by: blob.csi.azure.com
+  name: pv-elasticsearch-data-warm
+  namespace: elastic-stack
+spec:
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain  # If set as "Delete" container would be removed after pvc deletion
+  storageClassName: elastic-storage
+  csi:
+    driver: blob.csi.azure.com
+    readOnly: false
+    # make sure volumeid is unique for every identical storage blob container in the cluster
+    # character `#` is reserved for internal use and cannot be used in volumehandle
+    volumeHandle: elasticstoragelog-elasticstoragelog
+    volumeAttributes:
+      resourceGroup: ncs-neogrid-cloud-storage-dev
+      storageAccount: elasticstoragelog
+      containerName: warm
+      protocol: nfs
+      secretName: elastic-storage-account
+      secretNamespace: elastic-stack
+
+---
+
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  annotations:
+    pv.kubernetes.io/provisioned-by: blob.csi.azure.com
+  name: pv-elasticsearch-data-cold
+  namespace: elastic-stack
+spec:
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain  # If set as "Delete" container would be removed after pvc deletion
+  storageClassName: elastic-storage
+  csi:
+    driver: blob.csi.azure.com
+    readOnly: false
+    # make sure volumeid is unique for every identical storage blob container in the cluster
+    # character `#` is reserved for internal use and cannot be used in volumehandle
+    volumeHandle: elasticstoragelog-elasticstoragelog
+    volumeAttributes:
+      resourceGroup: ncs-neogrid-cloud-storage-dev
+      storageAccount: elasticstoragelog
+      containerName: cold
       protocol: nfs
       secretName: elastic-storage-account
       secretNamespace: elastic-stack
