@@ -37,6 +37,7 @@ eck-elasticsearch:
               requests:
                 storage: 10Gi
             storageClassName: elastic-storage-class
+            volumeName: elastic-pv
 
 
 eck-kibana:
