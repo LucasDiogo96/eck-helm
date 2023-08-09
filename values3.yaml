@@ -1,0 +1,151 @@
+eck-elasticsearch:
+  enabled: true
+  annotations:
+    eck.k8s.elastic.co/license: basic
+  fullnameOverride: elasticsearch
+  http:
+    service:
+      spec:
+        type: LoadBalancer
+    tls:
+      selfSignedCertificate:
+        disabled: true
+  nodeSets:
+  - name: master
+    count: 1
+    config:
+      node.roles: ["master"]
+      node.store.allow_mmap: false
+    podTemplate:
+      spec:
+        containers:
+        - name: elasticsearch
+          resources:
+            limits:
+              memory: 1Gi
+              cpu: 2
+    volumeClaimTemplates:
+    - metadata:
+        name: elasticsearch-data
+        namespace: elastic-stack 
+      spec:
+        accessModes:
+        - ReadWriteOnce
+        resources:
+          requests:
+            storage: 10Gi
+        storageClassName: elastic-storage
+
+  - name: hot
+    count: 1
+    config:
+      node.roles: ["data_hot", "data_content", "ingest"]
+      node.store.allow_mmap: false
+    podTemplate:
+      spec:
+        containers:
+        - name: elasticsearch
+          resources:
+            limits:
+              memory: 1Gi
+              cpu: 2
+    volumeClaimTemplates:
+    - metadata:
+        name: elasticsearch-data
+        namespace: elastic-stack 
+      spec:
+        accessModes:
+        - ReadWriteOnce
+        resources:
+          requests:
+            storage: 10Gi
+        storageClassName: elastic-storage
+
+  - name: warm
+    count: 1
+    config:
+      node.roles: ["data_warm"]
+      node.store.allow_mmap: false
+    podTemplate:
+      spec:
+        containers:
+        - name: elasticsearch
+          resources:
+            limits:
+              memory: 1Gi
+              cpu: 2
+    volumeClaimTemplates:
+    - metadata:
+        name: elasticsearch-data
+        namespace: elastic-stack 
+      spec:
+        accessModes:
+        - ReadWriteOnce
+        resources:
+          requests:
+            storage: 10Gi
+        storageClassName: elastic-storage
+
+  - name: cold
+    count: 1
+    config:
+      node.roles: ["data_cold"]
+      node.store.allow_mmap: false
+    podTemplate:
+      spec:
+        containers:
+        - name: elasticsearch
+          resources:
+            limits:
+              memory: 1Gi
+              cpu: 2
+    volumeClaimTemplates:
+    - metadata:
+        name: elasticsearch-data
+        namespace: elastic-stack 
+      spec:
+        accessModes:
+        - ReadWriteOnce
+        resources:
+          requests:
+            storage: 10Gi
+        storageClassName: elastic-storage
+
+eck-kibana:
+  enabled: true
+  annotations:
+    eck.k8s.elastic.co/license: basic
+  spec:
+    count: 1
+    elasticsearchRef:
+      name: elasticsearch
+    http:
+      service:
+        spec:
+          type: LoadBalancer
+      tls:
+        selfSignedCertificate:
+          disabled: true
+    podTemplate:
+      spec:
+        containers:
+          - name: kibana
+            env:
+              - name: NODE_OPTIONS
+                value: "--max-old-space-size=2048"
+            resources:
+              requests:
+                memory: 1Gi
+                cpu: 0.5
+            limits:
+              memory: 2.5Gi
+              cpu: 2
+
+eck-agent:
+  enabled: false
+
+eck-fleet-server:
+  enabled: false
+
+eck-beats:
+  enabled: false
