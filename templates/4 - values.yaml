@@ -34,7 +34,7 @@ eck-elasticsearch:
             - name: elasticsearch-data
       volumeClaimTemplates:
         - metadata:
-            name: elasticsearch-data
+            name: elasticsearch-data-elasticsearch-es-master-0
           spec:
             accessModes:
               - ReadWriteOnce
