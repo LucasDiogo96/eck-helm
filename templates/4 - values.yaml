@@ -24,9 +24,6 @@ eck-elasticsearch:
             limits:
               memory: 1Gi
               cpu: 2
-          volumeMounts:
-            - mountPath: /usr/share/elasticsearch/data
-              name: elasticsearch-data
     volumeClaimTemplates:
     - metadata:
         name: elasticsearch-data
