@@ -36,7 +36,7 @@ eck-elasticsearch:
             resources:
               requests:
                 storage: 10Gi
-            storageClassName: elastic-storage-class
+            storageClassName: blob-fuse
 
 eck-kibana:
   enabled: true
