@@ -36,7 +36,7 @@ eck-elasticsearch:
             resources:
               requests:
                 storage: 10Gi
-            storageClassName: "elastic-storage" # That must be used for Provisioning PVCs on the Oracle File Storage Service
+            storageClassName: "elastic-storage"
 
 eck-kibana:
   enabled: true
