@@ -27,9 +27,6 @@ eck-elasticsearch:
               env:
                 - name: ES_JAVA_OPTS
                   value: "-Xms4g -Xmx4g"
-              volumeMounts:
-                - name: elasticsearch-data
-                  mountPath: /usr/share/elasticsearch/data
       volumeClaimTemplates:
         - metadata:
             name: elasticsearch-data
@@ -39,7 +36,7 @@ eck-elasticsearch:
             resources:
               requests:
                 storage: 10Gi
-            storageClassName: blob-fuse
+            storageClassName: elastic-storage-class
 
 
 eck-kibana:
