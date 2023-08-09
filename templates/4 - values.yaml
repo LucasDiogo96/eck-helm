@@ -29,7 +29,7 @@ eck-elasticsearch:
                   value: "-Xms4g -Xmx4g"
       volumeClaimTemplates:
         - metadata:
-            name: elasticsearch-data-elasticsearch-es-master-0
+            name: elasticsearch-data
           spec:
             accessModes:
               - ReadWriteOnce
