@@ -32,8 +32,6 @@ eck-elasticsearch:
                   name: elasticsearch-data
           volumes:
             - name: elasticsearch-data
-              persistentVolumeClaim:
-                claimName: elasticsearch-data
       volumeClaimTemplates:
         - metadata:
             name: elasticsearch-data
