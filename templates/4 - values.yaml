@@ -28,14 +28,14 @@ eck-elasticsearch:
                 - name: ES_JAVA_OPTS
                   value: "-Xms4g -Xmx4g"
               volumeMounts:
-                - name: pv-elasticsearch-data-master
+                - name: elasticsearch-data
                   mountPath: "/usr/share/elasticsearch/data"
           volumes:
-            - name: pv-elasticsearch-data-master
+            - name: elasticsearch-data
             
       volumeClaimTemplates:
         - metadata:
-            name: pv-elasticsearch-data-master
+            name: elasticsearch-data
           spec:
             accessModes:
               - ReadWriteOnce
@@ -61,14 +61,14 @@ eck-elasticsearch:
                 - name: ES_JAVA_OPTS
                   value: "-Xms4g -Xmx4g"
               volumeMounts:
-                - name: pv-elasticsearch-data-master
+                - name: elasticsearch-data
                   mountPath: "/usr/share/elasticsearch/data"
           volumes:
-            - name: pv-elasticsearch-data-master
+            - name: elasticsearch-data
             
       volumeClaimTemplates:
         - metadata:
-            name: pv-elasticsearch-data-hot
+            name: elasticsearch-data
           spec:
             accessModes:
               - ReadWriteOnce
@@ -94,14 +94,14 @@ eck-elasticsearch:
                 - name: ES_JAVA_OPTS
                   value: "-Xms4g -Xmx4g"
               volumeMounts:
-                - name: pv-elasticsearch-data-master
+                - name: elasticsearch-data
                   mountPath: "/usr/share/elasticsearch/data"
           volumes:
-            - name: pv-elasticsearch-data-master
+            - name: elasticsearch-data
             
       volumeClaimTemplates:
         - metadata:
-            name: pv-elasticsearch-data-warm
+            name: elasticsearch-data
           spec:
             accessModes:
               - ReadWriteOnce
@@ -127,14 +127,14 @@ eck-elasticsearch:
                 - name: ES_JAVA_OPTS
                   value: "-Xms4g -Xmx4g"
               volumeMounts:
-                - name: pv-elasticsearch-data-master
+                - name: elasticsearch-data
                   mountPath: "/usr/share/elasticsearch/data"
           volumes:
-            - name: pv-elasticsearch-data-master
+            - name: elasticsearch-data
             
       volumeClaimTemplates:
         - metadata:
-            name: pv-elasticsearch-data-cold
+            name: elasticsearch-data
           spec:
             accessModes:
               - ReadWriteOnce
