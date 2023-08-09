@@ -29,11 +29,10 @@ eck-elasticsearch:
                   value: "-Xms4g -Xmx4g"
               volumeMounts:
                 - mountPath: /usr/share/elasticsearch/data
-                  subPath: elastic-data
-                  name: elastic-data-master
+                  name: elasticsearch-data
       volumeClaimTemplates:
         - metadata:
-            name: elastic-data-master
+            name: elasticsearch-data
           spec:
             accessModes:
               - ReadWriteOnce
@@ -42,106 +41,6 @@ eck-elasticsearch:
                 storage: 10Gi
             storageClassName: "elastic-storage" # That must be used for Provisioning PVCs on the Oracle File Storage Service
             volumeName: elastic-master
-
-        
-    - name: hot
-      count: 1
-      config:
-        node.roles: ["data_hot", "data_content", "ingest"]
-        node.store.allow_mmap: false
-      podTemplate:
-        spec:
-          containers:
-            - name: elasticsearch
-              resources:
-                limits:
-                  memory: 1Gi
-                  cpu: 2
-              env:
-                - name: ES_JAVA_OPTS
-                  value: "-Xms4g -Xmx4g"
-              volumeMounts:
-                - name: pv-elasticsearch-data-hot
-                  mountPath: "/usr/share/elasticsearch/data"
-          volumes:
-            - name: pv-elasticsearch-data-hot
-            
-      volumeClaimTemplates:
-        - metadata:
-            name: pv-elasticsearch-data-hot
-          spec:
-            accessModes:
-              - ReadWriteOnce
-            resources:
-              requests:
-                storage: 10Gi
-            storageClassName: elastic-storage
-        
-    - name: warm
-      count: 1
-      config:
-        node.roles: ["data_warm"]
-        node.store.allow_mmap: false
-      podTemplate:
-        spec:
-          containers:
-            - name: elasticsearch
-              resources:
-                limits:
-                  memory: 1Gi
-                  cpu: 2
-              env:
-                - name: ES_JAVA_OPTS
-                  value: "-Xms4g -Xmx4g"
-              volumeMounts:
-                - name: pv-elasticsearch-data-warm
-                  mountPath: "/usr/share/elasticsearch/data"
-          volumes:
-            - name: pv-elasticsearch-data-warm
-            
-      volumeClaimTemplates:
-        - metadata:
-            name: pv-elasticsearch-data-warm
-          spec:
-            accessModes:
-              - ReadWriteOnce
-            resources:
-              requests:
-                storage: 10Gi
-            storageClassName: elastic-storage
-        
-    - name: cold
-      count: 1
-      config:
-        node.roles: ["data_cold"]
-        node.store.allow_mmap: false
-      podTemplate:
-        spec:
-          containers:
-            - name: elasticsearch
-              resources:
-                limits:
-                  memory: 1Gi
-                  cpu: 2
-              env:
-                - name: ES_JAVA_OPTS
-                  value: "-Xms4g -Xmx4g"
-              volumeMounts:
-                - name: pv-elasticsearch-data-cold
-                  mountPath: "/usr/share/elasticsearch/data"
-          volumes:
-            - name: pv-elasticsearch-data-cold
-            
-      volumeClaimTemplates:
-        - metadata:
-            name: pv-elasticsearch-data-cold
-          spec:
-            accessModes:
-              - ReadWriteOnce
-            resources:
-              requests:
-                storage: 10Gi
-            storageClassName: elastic-storage
 
 eck-kibana:
   enabled: true
