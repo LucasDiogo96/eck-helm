@@ -27,16 +27,17 @@ eck-elasticsearch:
               env:
                 - name: ES_JAVA_OPTS
                   value: "-Xms4g -Xmx4g"
-          volumeClaimTemplates:
-            - metadata:
-                name: elasticsearch-data
-              spec:
-                accessModes:
-                  - ReadWriteOnce
-                resources:
-                  requests:
-                    storage: 10Gi
-                storageClassName: elastic-storage
+      volumeClaimTemplates:
+        - metadata:
+            name: elasticsearch-data
+          spec:
+            accessModes:
+              - ReadWriteOnce
+            resources:
+              requests:
+                storage: 10Gi
+            storageClassName: elastic-storage
+        
     - name: hot
       count: 1
       config:
@@ -53,16 +54,16 @@ eck-elasticsearch:
               env:
                 - name: ES_JAVA_OPTS
                   value: "-Xms24g -Xmx24g"
-          volumeClaimTemplates:
-            - metadata:
-                name: elasticsearch-data
-              spec:
-                accessModes:
-                  - ReadWriteOnce
-                resources:
-                  requests:
-                    storage: 10Gi
-                storageClassName: elastic-storage
+      volumeClaimTemplates:
+        - metadata:
+            name: elasticsearch-data
+          spec:
+            accessModes:
+              - ReadWriteOnce
+            resources:
+              requests:
+                storage: 10Gi
+            storageClassName: elastic-storage
     - name: warm
       count: 1
       config:
@@ -79,16 +80,16 @@ eck-elasticsearch:
               env:
                 - name: ES_JAVA_OPTS
                   value: "-Xms24g -Xmx24g"
-          volumeClaimTemplates:
-            - metadata:
-                name: elasticsearch-data
-              spec:
-                accessModes:
-                  - ReadWriteOnce
-                resources:
-                  requests:
-                    storage: 10Gi
-                storageClassName: elastic-storage
+      volumeClaimTemplates:
+        - metadata:
+            name: elasticsearch-data
+          spec:
+            accessModes:
+              - ReadWriteOnce
+            resources:
+              requests:
+                storage: 10Gi
+            storageClassName: elastic-storage
     - name: cold
       count: 1
       config:
@@ -105,16 +106,16 @@ eck-elasticsearch:
               env:
                 - name: ES_JAVA_OPTS
                   value: "-Xms24g -Xmx24g"
-          volumeClaimTemplates:
-            - metadata:
-                name: elasticsearch-data
-              spec:
-                accessModes:
-                  - ReadWriteOnce
-                resources:
-                  requests:
-                    storage: 10Gi
-                storageClassName: elastic-storage
+      volumeClaimTemplates:
+        - metadata:
+            name: elasticsearch-data
+          spec:
+            accessModes:
+              - ReadWriteOnce
+            resources:
+              requests:
+                storage: 10Gi
+            storageClassName: elastic-storage
 
 eck-kibana:
   enabled: true
