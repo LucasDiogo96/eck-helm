@@ -37,14 +37,15 @@ eck-elasticsearch:
       volumeClaimTemplates:
         - metadata:
             name: elasticsearch-data
+            namespace: elastic-stack
           spec:
             accessModes:
               - ReadWriteOnce
             resources:
               requests:
                 storage: 10Gi
-            storageClassName: ""
-            volumeName: elastic-pv
+            storageClassName: "elastic-storage-class"
+            volumeName: elasticsearch-data
 
 
 eck-kibana:
