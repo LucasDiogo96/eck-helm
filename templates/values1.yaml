@@ -27,6 +27,13 @@ eck-elasticsearch:
               env:
                 - name: ES_JAVA_OPTS
                   value: "-Xms4g -Xmx4g"
+              volumeMounts:
+              - name: elasticsearch-data
+                mountPath: /usr/share/elasticsearch/data
+          volumes:
+            - name: elasticsearch-data
+              persistentVolumeClaim:
+                claimName: elasticsearch-data
       volumeClaimTemplates:
         - metadata:
             name: elasticsearch-data
