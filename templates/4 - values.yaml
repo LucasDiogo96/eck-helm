@@ -28,21 +28,21 @@ eck-elasticsearch:
                 - name: ES_JAVA_OPTS
                   value: "-Xms4g -Xmx4g"
               volumeMounts:
-                - name: pv-elasticsearch-data-master
-                  mountPath: "/usr/share/elasticsearch/data"
-          volumes:
-            - name: pv-elasticsearch-data-master
-            
+                - mountPath: /usr/share/elasticsearch/data
+                  subPath: elastic-data
+                  name: elastic-data-mount
       volumeClaimTemplates:
         - metadata:
-            name: pv-elasticsearch-data-master
+            name: elastic-data-master
           spec:
             accessModes:
               - ReadWriteOnce
             resources:
               requests:
                 storage: 10Gi
-            storageClassName: elastic-storage
+            storageClassName: "elastic-storage" # That must be used for Provisioning PVCs on the Oracle File Storage Service
+            volumeName: elastic-pv
+
         
     - name: hot
       count: 1
