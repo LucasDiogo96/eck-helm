@@ -30,7 +30,7 @@ eck-elasticsearch:
               volumeMounts:
                 - mountPath: /usr/share/elasticsearch/data
                   subPath: elastic-data
-                  name: elastic-data-mount
+                  name: elastic-data-master
       volumeClaimTemplates:
         - metadata:
             name: elastic-data-master
@@ -41,7 +41,7 @@ eck-elasticsearch:
               requests:
                 storage: 10Gi
             storageClassName: "elastic-storage" # That must be used for Provisioning PVCs on the Oracle File Storage Service
-            volumeName: elastic-pv
+            volumeName: elastic-master
 
         
     - name: hot
