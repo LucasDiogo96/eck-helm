@@ -11,121 +11,110 @@ eck-elasticsearch:
       selfSignedCertificate:
         disabled: true
   nodeSets:
-  - name: master
-    count: 1
-    config:
-      node.roles: ["master"]
-      node.store.allow_mmap: false
-    podTemplate:
-      spec:
-        containers:
-        - name: elasticsearch
-          resources:
-            limits:
-              memory: 1Gi
-              cpu: 2
-          volumeMounts:
-          - name: elasticsearch-data
-            mountPath: /usr/share/elasticsearch/data
-    volumeClaimTemplates:
-    - metadata:
-        name: elasticsearch-data
-        namespace: elastic-stack 
-      spec:
-        accessModes:
-        - ReadWriteOnce
-        resources:
-          requests:
-            storage: 10Gi
-        volumeName: pv-elasticsearch-data-master
-        storageClassName: elastic-storage
-
-  - name: hot
-    count: 2
-    config:
-      node.roles: ["data_hot", "data_content", "ingest"]
-      node.store.allow_mmap: false
-    podTemplate:
-      spec:
-        containers:
-        - name: elasticsearch
-          resources:
-            limits:
-              memory: 1Gi
-              cpu: 2
-          volumeMounts:
-          - name: elasticsearch-data
-            mountPath: /usr/share/elasticsearch/data
-    volumeClaimTemplates:
-    - metadata:
-        name: elasticsearch-data
-        namespace: elastic-stack 
-      spec:
-        accessModes:
-        - ReadWriteOnce
-        resources:
-          requests:
-            storage: 10Gi
-        volumeName: pv-elasticsearch-data-hot
-        storageClassName: elastic-storage
-
-  - name: warm
-    count: 1
-    config:
-      node.roles: ["data_warm"]
-      node.store.allow_mmap: false
-    podTemplate:
-      spec:
-        containers:
-        - name: elasticsearch
-          resources:
-            limits:
-              memory: 1Gi
-              cpu: 2
-          volumeMounts:
-          - name: elasticsearch-data
-            mountPath: /usr/share/elasticsearch/data
-    volumeClaimTemplates:
-    - metadata:
-        name: elasticsearch-data
-        namespace: elastic-stack 
-      spec:
-        accessModes:
-        - ReadWriteOnce
-        resources:
-          requests:
-            storage: 10Gi
-        volumeName: pv-elasticsearch-data-warm
-        storageClassName: elastic-storage
-
-  - name: cold
-    count: 1
-    config:
-      node.roles: ["data_cold"]
-      node.store.allow_mmap: false
-    podTemplate:
-      spec:
-        containers:
-        - name: elasticsearch
-          resources:
-            limits:
-              memory: 1Gi
-              cpu: 2
-          volumeMounts:
-          - name: elasticsearch-data
-            mountPath: /usr/share/elasticsearch/data
-    volumeClaimTemplates:
-    - metadata:
-        name: elasticsearch-data
-        namespace: elastic-stack 
-      spec:
-        accessModes:
-        - ReadWriteOnce
-        resources:
-          requests:
-            storage: 10Gi
-        volumeName: pv-elasticsearch-data-cold
-        storageClassName: elastic-storage
+    - name: master
+      count: 1
+      config:
+        node.roles: ["master"]
+        node.store.allow_mmap: false
+      podTemplate:
+        spec:
+          containers:
+            - name: elasticsearch
+              resources:
+                limits:
+                  memory: 1Gi
+                  cpu: 2
+              env:
+                - name: ES_JAVA_OPTS
+                  value: "-Xms4g -Xmx4g"
+          volumeClaimTemplates:
+            - metadata:
+                name: elasticsearch-data
+              spec:
+                accessModes:
+                  - ReadWriteOnce
+                resources:
+                  requests:
+                    storage: 10Gi
+                storageClassName: elastic-storage
+    - name: hot
+      count: 1
+      config:
+        node.roles: ["data_hot", "data_content", "ingest"]
+        node.store.allow_mmap: false
+      podTemplate:
+        spec:
+          containers:
+            - name: elasticsearch
+              resources:
+                limits:
+                  memory: 1Gi
+                  cpu: 2
+              env:
+                - name: ES_JAVA_OPTS
+                  value: "-Xms24g -Xmx24g"
+          volumeClaimTemplates:
+            - metadata:
+                name: elasticsearch-data
+              spec:
+                accessModes:
+                  - ReadWriteOnce
+                resources:
+                  requests:
+                    storage: 10Gi
+                storageClassName: elastic-storage
+    - name: warm
+      count: 1
+      config:
+        node.roles: ["data_warm"]
+        node.store.allow_mmap: false
+      podTemplate:
+        spec:
+          containers:
+            - name: elasticsearch
+              resources:
+                limits:
+                  memory: 1Gi
+                  cpu: 2
+              env:
+                - name: ES_JAVA_OPTS
+                  value: "-Xms24g -Xmx24g"
+          volumeClaimTemplates:
+            - metadata:
+                name: elasticsearch-data
+              spec:
+                accessModes:
+                  - ReadWriteOnce
+                resources:
+                  requests:
+                    storage: 10Gi
+                storageClassName: elastic-storage
+    - name: cold
+      count: 1
+      config:
+        node.roles: ["data_cold"]
+        node.store.allow_mmap: false
+      podTemplate:
+        spec:
+          containers:
+            - name: elasticsearch
+              resources:
+                limits:
+                  memory: 1Gi
+                  cpu: 2
+              env:
+                - name: ES_JAVA_OPTS
+                  value: "-Xms24g -Xmx24g"
+          volumeClaimTemplates:
+            - metadata:
+                name: elasticsearch-data
+              spec:
+                accessModes:
+                  - ReadWriteOnce
+                resources:
+                  requests:
+                    storage: 10Gi
+                storageClassName: elastic-storage
 
 eck-kibana:
   enabled: true
