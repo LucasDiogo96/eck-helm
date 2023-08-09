@@ -13,7 +13,7 @@ parameters:
   csi.storage.k8s.io/node-stage-secret-name: elastic-storage
   csi.storage.k8s.io/node-stage-secret-namespace: elastic-stack
 reclaimPolicy: Retain  # if set as "Delete" container would be removed after pvc deletion
-volumeBindingMode: Immediate
+volumeBindingMode: WaitForFirstConsumer
 allowVolumeExpansion: true
 mountOptions:
   - -o allow_other
