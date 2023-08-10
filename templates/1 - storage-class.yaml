@@ -5,9 +5,6 @@ metadata:
   namespace: elastic-stack
 provisioner: blob.csi.azure.com
 parameters:
-  resourceGroup: ncs-neogrid-cloud-storage-dev
-  storageAccount: elasticstoragelog
-  containerName: elastic
   csi.storage.k8s.io/provisioner-secret-name: elastic-storage
   csi.storage.k8s.io/provisioner-secret-namespace: elastic-stack
   csi.storage.k8s.io/node-stage-secret-name: elastic-storage
