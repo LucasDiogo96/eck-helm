@@ -11,106 +11,25 @@ eck-elasticsearch:
       selfSignedCertificate:
         disabled: true
   nodeSets:
-  - name: master
+  - name: default
     count: 1
     config:
-      node.roles: ["master"]
+      # Comment out when setting the vm.max_map_count via initContainer, as these are mutually exclusive.
+      # For production workloads, it is strongly recommended to increase the kernel setting vm.max_map_count to 262144
+      # and leave node.store.allow_mmap unset.
+      # ref: https://www.elastic.co/guide/en/cloud-on-k8s/current/k8s-virtual-memory.html
+      #
       node.store.allow_mmap: false
-    podTemplate:
-      spec:
-        containers:
-        - name: elasticsearch
-          resources:
-            limits:
-              memory: 1Gi
-              cpu: 2
     volumeClaimTemplates:
     - metadata:
         name: elasticsearch-data
-        namespace: elastic-stack 
       spec:
         accessModes:
         - ReadWriteOnce
         resources:
           requests:
-            storage: 10Gi
+            storage: 100Gi
         storageClassName: elastic-storage
-
-  - name: hot
-    count: 1
-    config:
-      node.roles: ["data_hot", "data_content", "ingest"]
-      node.store.allow_mmap: false
-    podTemplate:
-      spec:
-        containers:
-        - name: elasticsearch
-          resources:
-            limits:
-              memory: 1Gi
-              cpu: 2
-    volumeClaimTemplates:
-    - metadata:
-        name: elasticsearch-data
-        namespace: elastic-stack 
-      spec:
-        accessModes:
-        - ReadWriteOnce
-        resources:
-          requests:
-            storage: 10Gi
-        storageClassName: elastic-storage
-
-  - name: warm
-    count: 1
-    config:
-      node.roles: ["data_warm"]
-      node.store.allow_mmap: false
-    podTemplate:
-      spec:
-        containers:
-        - name: elasticsearch
-          resources:
-            limits:
-              memory: 1Gi
-              cpu: 2
-    volumeClaimTemplates:
-    - metadata:
-        name: elasticsearch-data
-        namespace: elastic-stack 
-      spec:
-        accessModes:
-        - ReadWriteOnce
-        resources:
-          requests:
-            storage: 10Gi
-        storageClassName: elastic-storage
-
-  - name: cold
-    count: 1
-    config:
-      node.roles: ["data_cold"]
-      node.store.allow_mmap: false
-    podTemplate:
-      spec:
-        containers:
-        - name: elasticsearch
-          resources:
-            limits:
-              memory: 1Gi
-              cpu: 2
-    volumeClaimTemplates:
-    - metadata:
-        name: elasticsearch-data
-        namespace: elastic-stack 
-      spec:
-        accessModes:
-        - ReadWriteOnce
-        resources:
-          requests:
-            storage: 10Gi
-        storageClassName: elastic-storage
-
 eck-kibana:
   enabled: true
   annotations:
