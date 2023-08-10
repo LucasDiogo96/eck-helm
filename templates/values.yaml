@@ -11,20 +11,106 @@ eck-elasticsearch:
       selfSignedCertificate:
         disabled: true
   nodeSets:
-  - name: default
+  - name: master
     count: 1
     config:
+      node.roles: ["master"]
       node.store.allow_mmap: false
+    podTemplate:
+      spec:
+        containers:
+        - name: elasticsearch
+          resources:
+            limits:
+              memory: 1Gi
+              cpu: 2
     volumeClaimTemplates:
     - metadata:
         name: elasticsearch-data
+        namespace: elastic-stack 
       spec:
         accessModes:
         - ReadWriteOnce
         resources:
           requests:
-            storage: 100Gi
+            storage: 10Gi
         storageClassName: elastic-storage
+
+  - name: hot
+    count: 1
+    config:
+      node.roles: ["data_hot", "data_content", "ingest"]
+      node.store.allow_mmap: false
+    podTemplate:
+      spec:
+        containers:
+        - name: elasticsearch
+          resources:
+            limits:
+              memory: 1Gi
+              cpu: 2
+    volumeClaimTemplates:
+    - metadata:
+        name: elasticsearch-data
+        namespace: elastic-stack 
+      spec:
+        accessModes:
+        - ReadWriteOnce
+        resources:
+          requests:
+            storage: 10Gi
+        storageClassName: elastic-storage
+
+  - name: warm
+    count: 1
+    config:
+      node.roles: ["data_warm"]
+      node.store.allow_mmap: false
+    podTemplate:
+      spec:
+        containers:
+        - name: elasticsearch
+          resources:
+            limits:
+              memory: 1Gi
+              cpu: 2
+    volumeClaimTemplates:
+    - metadata:
+        name: elasticsearch-data
+        namespace: elastic-stack 
+      spec:
+        accessModes:
+        - ReadWriteOnce
+        resources:
+          requests:
+            storage: 10Gi
+        storageClassName: elastic-storage
+
+  - name: cold
+    count: 1
+    config:
+      node.roles: ["data_cold"]
+      node.store.allow_mmap: false
+    podTemplate:
+      spec:
+        containers:
+        - name: elasticsearch
+          resources:
+            limits:
+              memory: 1Gi
+              cpu: 2
+    volumeClaimTemplates:
+    - metadata:
+        name: elasticsearch-data
+        namespace: elastic-stack 
+      spec:
+        accessModes:
+        - ReadWriteOnce
+        resources:
+          requests:
+            storage: 10Gi
+        storageClassName: elastic-storage
+
 eck-kibana:
   enabled: true
   annotations:
