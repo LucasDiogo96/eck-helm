@@ -33,7 +33,7 @@ eck-elasticsearch:
         - ReadWriteOnce
         resources:
           requests:
-            storage: 50Gi
+            storage: 128Gi
         storageClassName: elastic-storage
 
   - name: hot
@@ -58,7 +58,7 @@ eck-elasticsearch:
         - ReadWriteOnce
         resources:
           requests:
-            storage: 50Gi
+            storage: 128Gi
         storageClassName: elastic-storage
 
   - name: warm
@@ -83,7 +83,7 @@ eck-elasticsearch:
         - ReadWriteOnce
         resources:
           requests:
-            storage: 50Gi
+            storage: 128Gi
         storageClassName: elastic-storage
 
   - name: cold
@@ -108,7 +108,7 @@ eck-elasticsearch:
         - ReadWriteOnce
         resources:
           requests:
-            storage: 50Gi
+            storage: 128Gi
         storageClassName: elastic-storage
 
 eck-kibana:
