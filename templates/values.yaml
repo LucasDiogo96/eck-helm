@@ -34,8 +34,7 @@ eck-elasticsearch:
         resources:
           requests:
             storage: 10Gi
-        volumeMounts:
-        - name: elasticsearch-data-master
+        volumeName: elasticsearch-data-master
         storageClassName: elastic-storage
 
   - name: hot
@@ -50,8 +49,6 @@ eck-elasticsearch:
           resources:
             requests:
               storage: 10Gi
-          volumeMounts:
-          - name: elasticsearch-data-master
     volumeClaimTemplates:
     - metadata:
         name: elasticsearch-data
@@ -62,8 +59,8 @@ eck-elasticsearch:
         resources:
           requests:
             storage: 10Gi
+        volumeName: elasticsearch-data-hot
         storageClassName: elastic-storage
-
   - name: warm
     count: 1
     config:
@@ -77,8 +74,6 @@ eck-elasticsearch:
             limits:
               memory: 1Gi
               cpu: 2
-          volumeMounts:
-          - name: elasticsearch-data-master
     volumeClaimTemplates:
     - metadata:
         name: elasticsearch-data
@@ -89,6 +84,7 @@ eck-elasticsearch:
         resources:
           requests:
             storage: 10Gi
+        volumeName: elasticsearch-data-warm
         storageClassName: elastic-storage
 
   - name: cold
@@ -104,8 +100,6 @@ eck-elasticsearch:
             limits:
               memory: 1Gi
               cpu: 2
-          volumeMounts:
-          - name: elasticsearch-data-master
     volumeClaimTemplates:
     - metadata:
         name: elasticsearch-data
@@ -116,6 +110,7 @@ eck-elasticsearch:
         resources:
           requests:
             storage: 10Gi
+        volumeName: elasticsearch-data-cold
         storageClassName: elastic-storage
 
 eck-kibana:
