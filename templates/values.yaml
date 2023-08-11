@@ -24,8 +24,6 @@ eck-elasticsearch:
             limits:
               memory: 8Gi
               cpu: 4
-          volumeMounts:
-          - name: elasticsearch-data-master
     volumeClaimTemplates:
     - metadata:
         name: elasticsearch-data
@@ -51,8 +49,6 @@ eck-elasticsearch:
             limits:
               memory: 4Gi
               cpu: 4
-          volumeMounts:
-          - name: elasticsearch-data-hot
     volumeClaimTemplates:
     - metadata:
         name: elasticsearch-data
@@ -78,8 +74,6 @@ eck-elasticsearch:
             limits:
               memory: 4Gi
               cpu: 4
-          volumeMounts:
-          - name: elasticsearch-data-warm
     volumeClaimTemplates:
     - metadata:
         name: elasticsearch-data
@@ -105,8 +99,6 @@ eck-elasticsearch:
             limits:
               memory: 4Gi
               cpu: 4
-          volumeMounts:
-          - name: elasticsearch-data-cold
     volumeClaimTemplates:
     - metadata:
         name: elasticsearch-data
