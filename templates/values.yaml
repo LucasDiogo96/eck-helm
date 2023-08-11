@@ -24,6 +24,8 @@ eck-elasticsearch:
             limits:
               memory: 4Gi
               cpu: 4
+           volumeMounts:
+            - name: elasticsearch-data-master
     volumeClaimTemplates:
     - metadata:
         name: elasticsearch-data
@@ -59,6 +61,8 @@ eck-elasticsearch:
         resources:
           requests:
             storage: 128Gi
+          volumeMounts:
+          - name: elasticsearch-data-master
         storageClassName: elastic-storage
 
   - name: warm
@@ -84,6 +88,8 @@ eck-elasticsearch:
         resources:
           requests:
             storage: 128Gi
+          volumeMounts:
+          - name: elasticsearch-data-master
         storageClassName: elastic-storage
 
   - name: cold
@@ -109,6 +115,8 @@ eck-elasticsearch:
         resources:
           requests:
             storage: 128Gi
+          volumeMounts:
+          - name: elasticsearch-data-master
         storageClassName: elastic-storage
 
 eck-kibana:
