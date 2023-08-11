@@ -7,7 +7,6 @@ provisioner: disk.csi.azure.com
 parameters:
   skuName: StandardSSD_LRS  # alias: storageaccounttype, available values: Standard_LRS, Premium_LRS, StandardSSD_LRS, UltraSSD_LRS
   locations: eastus2
-  resourceGroup: ncs-neogrid-cloud-storage-dev
 reclaimPolicy: Delete
 volumeBindingMode: WaitForFirstConsumer
 allowVolumeExpansion: true
