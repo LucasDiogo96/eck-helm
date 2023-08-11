@@ -6,7 +6,7 @@ metadata:
 provisioner: disk.csi.azure.com
 parameters:
   skuName: StandardSSD_LRS  # alias: storageaccounttype, available values: Standard_LRS, Premium_LRS, StandardSSD_LRS, UltraSSD_LRS
-  locations: eastus2
+  location: eastus2
 reclaimPolicy: Retain
 volumeBindingMode: WaitForFirstConsumer
 allowVolumeExpansion: true
