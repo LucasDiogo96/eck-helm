@@ -22,7 +22,7 @@ eck-elasticsearch:
         - name: elasticsearch
           resources:
             limits:
-              memory: 4Gi
+              memory: 1Gi
               cpu: 2
     volumeClaimTemplates:
     - metadata:
@@ -48,7 +48,7 @@ eck-elasticsearch:
         - name: elasticsearch
           resources:
             limits:
-              memory: 4Gi
+              memory: 1Gi
               cpu: 2
     volumeClaimTemplates:
     - metadata:
@@ -74,7 +74,7 @@ eck-elasticsearch:
         - name: elasticsearch
           resources:
             limits:
-              memory: 4Gi
+              memory: 1Gi
               cpu: 2
     volumeClaimTemplates:
     - metadata:
@@ -100,7 +100,7 @@ eck-elasticsearch:
         - name: elasticsearch
           resources:
             limits:
-              memory: 4Gi
+              memory: 1Gi
               cpu: 2
     volumeClaimTemplates:
     - metadata:
