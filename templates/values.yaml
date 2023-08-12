@@ -139,10 +139,10 @@ eck-kibana:
                 value: "--max-old-space-size=4096"
             resources:
               requests:
-                memory: 4Gi
+                memory: 2Gi
                 cpu: 1
             limits:
-              memory: 8Gi
+              memory: 4Gi
               cpu: 2
 
 eck-agent:
