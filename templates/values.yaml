@@ -22,19 +22,22 @@ eck-elasticsearch:
         - name: elasticsearch
           resources:
             limits:
-              memory: 1Gi
-              cpu: 2
+              memory: 8Gi
+              cpu: 4
+          volumeMounts:
+          - name: elasticsearch-data-master
     volumeClaimTemplates:
     - metadata:
         name: elasticsearch-data
-        namespace: elastic-stack 
+        namespace: elastic-stack
       spec:
         accessModes:
         - ReadWriteOnce
         resources:
           requests:
-            storage: 10Gi
+            storage: 128Gi
         storageClassName: elastic-storage
+        volumeName: elastic-storage-master
 
   - name: hot
     count: 1
@@ -46,19 +49,24 @@ eck-elasticsearch:
         containers:
         - name: elasticsearch
           resources:
-            requests:
-              storage: 10Gi
+            limits:
+              memory: 4Gi
+              cpu: 4
+          volumeMounts:
+          - name: elasticsearch-data-hot
     volumeClaimTemplates:
     - metadata:
         name: elasticsearch-data
-        namespace: elastic-stack 
+        namespace: elastic-stack
       spec:
         accessModes:
         - ReadWriteOnce
         resources:
           requests:
-            storage: 10Gi
+            storage: 128Gi
         storageClassName: elastic-storage
+        volumeName: elastic-storage-hot
+
   - name: warm
     count: 1
     config:
@@ -70,19 +78,22 @@ eck-elasticsearch:
         - name: elasticsearch
           resources:
             limits:
-              memory: 1Gi
-              cpu: 2
+              memory: 4Gi
+              cpu: 4
+          volumeMounts:
+          - name: elasticsearch-data-warm
     volumeClaimTemplates:
     - metadata:
         name: elasticsearch-data
-        namespace: elastic-stack 
+        namespace: elastic-stack
       spec:
         accessModes:
         - ReadWriteOnce
         resources:
           requests:
-            storage: 10Gi
+            storage: 128Gi
         storageClassName: elastic-storage
+        volumeName: elastic-storage-warm
 
   - name: cold
     count: 1
@@ -95,19 +106,22 @@ eck-elasticsearch:
         - name: elasticsearch
           resources:
             limits:
-              memory: 1Gi
-              cpu: 2
+              memory: 4Gi
+              cpu: 4
+          volumeMounts:
+          - name: elasticsearch-data-cold
     volumeClaimTemplates:
     - metadata:
         name: elasticsearch-data
-        namespace: elastic-stack 
+        namespace: elastic-stack
       spec:
         accessModes:
         - ReadWriteOnce
         resources:
           requests:
-            storage: 10Gi
+            storage: 128Gi
         storageClassName: elastic-storage
+        volumeName: elastic-storage-cold
 
 eck-kibana:
   enabled: true
@@ -130,13 +144,13 @@ eck-kibana:
           - name: kibana
             env:
               - name: NODE_OPTIONS
-                value: "--max-old-space-size=2048"
+                value: "--max-old-space-size=4096"
             resources:
               requests:
-                memory: 1Gi
-                cpu: 0.5
+                memory: 4Gi
+                cpu: 1
             limits:
-              memory: 2.5Gi
+              memory: 8Gi
               cpu: 2
 
 eck-agent:
