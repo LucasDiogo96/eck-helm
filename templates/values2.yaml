@@ -34,7 +34,6 @@ eck-elasticsearch:
         resources:
           requests:
             storage: 128Gi
-        storageClassName: elastic-storage
   - name: hot
     count: 1
     config:
@@ -58,7 +57,6 @@ eck-elasticsearch:
         resources:
           requests:
             storage: 128Gi
-        storageClassName: elastic-storage
   - name: warm
     count: 1
     config:
@@ -82,7 +80,6 @@ eck-elasticsearch:
         resources:
           requests:
             storage: 128Gi
-        storageClassName: elastic-storage
   - name: cold
     count: 1
     config:
@@ -106,7 +103,6 @@ eck-elasticsearch:
         resources:
           requests:
             storage: 128Gi
-        storageClassName: elastic-storage
 
 eck-kibana:
   enabled: true
