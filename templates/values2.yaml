@@ -21,7 +21,7 @@ eck-elasticsearch:
         - name: elasticsearch
           resources:
             limits:
-              memory: 8Gi
+              memory: 4Gi
               cpu: 2
     volumeClaimTemplates:
     - metadata:
