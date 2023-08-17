@@ -14,7 +14,6 @@ eck-elasticsearch:
   - name: master
     count: 1
     config:
-      node.roles: ["master"]
       node.store.allow_mmap: false
     podTemplate:
       spec:
@@ -22,7 +21,7 @@ eck-elasticsearch:
         - name: elasticsearch
           resources:
             limits:
-              memory: 1Gi
+              memory: 8Gi
               cpu: 2
     volumeClaimTemplates:
     - metadata:
@@ -33,77 +32,9 @@ eck-elasticsearch:
         - ReadWriteOnce
         resources:
           requests:
-            storage: 128Gi
-  - name: hot
-    count: 1
-    config:
-      node.roles: ["data_hot", "data_content", "ingest"]
-      node.store.allow_mmap: false
-    podTemplate:
-      spec:
-        containers:
-        - name: elasticsearch
-          resources:
-            limits:
-              memory: 1Gi
-              cpu: 2
-    volumeClaimTemplates:
-    - metadata:
-        name: elasticsearch-data
-        namespace: elastic-stack
-      spec:
-        accessModes:
-        - ReadWriteOnce
-        resources:
-          requests:
-            storage: 128Gi
-  - name: warm
-    count: 1
-    config:
-      node.roles: ["data_warm"]
-      node.store.allow_mmap: false
-    podTemplate:
-      spec:
-        containers:
-        - name: elasticsearch
-          resources:
-            limits:
-              memory: 1Gi
-              cpu: 2
-    volumeClaimTemplates:
-    - metadata:
-        name: elasticsearch-data
-        namespace: elastic-stack
-      spec:
-        accessModes:
-        - ReadWriteOnce
-        resources:
-          requests:
-            storage: 128Gi
-  - name: cold
-    count: 1
-    config:
-      node.roles: ["data_cold"]
-      node.store.allow_mmap: false
-    podTemplate:
-      spec:
-        containers:
-        - name: elasticsearch
-          resources:
-            limits:
-              memory: 1Gi
-              cpu: 2
-    volumeClaimTemplates:
-    - metadata:
-        name: elasticsearch-data
-        namespace: elastic-stack
-      spec:
-        accessModes:
-        - ReadWriteOnce
-        resources:
-          requests:
-            storage: 128Gi
-
+            storage: 256Gi
+        storageClassName: elastic-storage
+        volumeName: elastic-storage-pv
 eck-kibana:
   enabled: true
   annotations:
