@@ -35,8 +35,6 @@ eck-elasticsearch:
           requests:
             storage: 128Gi
         storageClassName: elastic-storage
-        volumeName: elastic-storage-master
-
   - name: hot
     count: 1
     config:
@@ -61,8 +59,6 @@ eck-elasticsearch:
           requests:
             storage: 128Gi
         storageClassName: elastic-storage
-        volumeName: elastic-storage-hot
-
   - name: warm
     count: 1
     config:
@@ -87,8 +83,6 @@ eck-elasticsearch:
           requests:
             storage: 128Gi
         storageClassName: elastic-storage
-        volumeName: elastic-storage-warm
-
   - name: cold
     count: 1
     config:
@@ -113,7 +107,6 @@ eck-elasticsearch:
           requests:
             storage: 128Gi
         storageClassName: elastic-storage
-        volumeName: elastic-storage-cold
 
 eck-kibana:
   enabled: true
@@ -139,10 +132,10 @@ eck-kibana:
                 value: "--max-old-space-size=4096"
             resources:
               requests:
-                memory: 1Gi
-                cpu: 0.5
+                memory: 2Gi
+                cpu: 1
             limits:
-              memory: 2.5Gi
+              memory: 4Gi
               cpu: 2
 
 eck-agent:
