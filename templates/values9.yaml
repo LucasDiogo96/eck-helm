@@ -1,0 +1,77 @@
+eck-elasticsearch:
+  enabled: true
+  annotations:
+    eck.k8s.elastic.co/license: basic
+  fullnameOverride: elasticsearch
+  http:
+    service:
+      spec:
+        type: LoadBalancer
+    tls:
+      selfSignedCertificate:
+        disabled: true
+  nodeSets:
+  - name: master
+    count: 1
+    config:
+      node.store.allow_mmap: false
+    podTemplate:
+      spec:
+        containers:
+        - name: elasticsearch
+          resources:
+            limits:
+              memory: 4Gi
+              cpu: 4
+          env:
+          - name: ES_JAVA_OPTS
+            value: "-Xms4g -Xmx4g"
+    volumeClaimTemplates:
+    - metadata:
+        name:  elasticsearch-data
+        namespace: elastic-stack
+      spec:
+        accessModes:
+        - ReadWriteOnce
+        resources:
+          requests:
+            storage: 128Gi
+
+eck-kibana:
+  enabled: true
+  annotations:
+    eck.k8s.elastic.co/license: basic
+  spec:
+    count: 1
+    elasticsearchRef:
+      name: elasticsearch
+    http:
+      service:
+        spec:
+          type: LoadBalancer
+      tls:
+        selfSignedCertificate:
+          disabled: true
+    podTemplate:
+      spec:
+        containers:
+          - name: kibana
+            env:
+              - name: NODE_OPTIONS
+                value: "--max-old-space-size=2048"
+            resources:
+              requests:
+                memory: 1Gi
+                cpu: 0.5
+            limits:
+              memory: 2.5Gi
+              cpu: 2
+
+eck-agent:
+  enabled: false
+
+eck-fleet-server:
+  enabled: false
+
+eck-beats:
+  enabled: false
