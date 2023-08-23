@@ -27,7 +27,6 @@ eck-elasticsearch:
     volumeClaimTemplates:
     - metadata:
         name: elasticsearch-data
-        namespace: elastic-stack
       spec:
         accessModes:
         - ReadWriteOnce
@@ -50,7 +49,6 @@ eck-elasticsearch:
     volumeClaimTemplates:
     - metadata:
         name: elasticsearch-data
-        namespace: elastic-stack
       spec:
         accessModes:
         - ReadWriteOnce
@@ -74,7 +72,6 @@ eck-elasticsearch:
     volumeClaimTemplates:
     - metadata:
         name: elasticsearch-data
-        namespace: elastic-stack
       spec:
         accessModes:
         - ReadWriteOnce
@@ -97,7 +94,6 @@ eck-elasticsearch:
     volumeClaimTemplates:
     - metadata:
         name: elasticsearch-data
-        namespace: elastic-stack
       spec:
         accessModes:
         - ReadWriteOnce
