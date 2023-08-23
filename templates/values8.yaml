@@ -36,8 +36,6 @@ eck-elasticsearch:
         resources:
           requests:
             storage: 128Gi
-        storageClassName: elastic-storage
-        persistentVolumeReclaimPolicy: Retain
 
 eck-kibana:
   enabled: true
