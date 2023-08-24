@@ -147,7 +147,7 @@ eck-beats:
   spec:
     type: filebeat
     elasticsearchRef:
-      name: eck-elasticsearch
+      name: elasticsearch
     kibanaRef:
       name: eck-kibana
     config:
