@@ -36,7 +36,8 @@ eck-elasticsearch:
         resources:
           requests:
             storage: 128Gi
-
+        storageClassName: elastic-storage
+        volumeName: elastic-storage-master
 eck-kibana:
   enabled: true
   annotations:
