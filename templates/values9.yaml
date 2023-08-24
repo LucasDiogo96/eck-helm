@@ -28,16 +28,13 @@ eck-elasticsearch:
             value: "-Xms4g -Xmx4g"
     volumeClaimTemplates:
     - metadata:
-        name:  elasticsearch-data
-        namespace: elastic-stack
+        name: persistent-storage
       spec:
-        accessModes:
-        - ReadWriteOnce
+        storageClassName: elastic-storage
+        accessModes: ["ReadWriteOnce"]
         resources:
           requests:
             storage: 128Gi
-        storageClassName: elastic-storage
-        volumeName: elastic-storage-master
 eck-kibana:
   enabled: true
   annotations:
