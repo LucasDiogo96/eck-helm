@@ -28,7 +28,7 @@ eck-elasticsearch:
             value: "-Xms4g -Xmx4g"
     volumeClaimTemplates:
     - metadata:
-        name: persistent-storage
+        name: elasticsearch-data
       spec:
         storageClassName: elastic-storage
         accessModes: ["ReadWriteOnce"]
