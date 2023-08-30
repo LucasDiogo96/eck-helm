@@ -323,7 +323,7 @@ public class ElasticSearchAppender extends ch.qos.logback.core.AppenderBase<ch.q
 
 ``` java
 <configuration>
-    <appender name="ELASTIC" class="com.neogrid.ngrepository.ElasticSearchAppender" >
+    <appender name="ELASTIC" class="com.my.app.ElasticSearchAppender" >
         <param name="environment" value="[Environment]" />
         <param name="application" value="[Application]" />
         <param name="host" value="http://[ELASTIC-IP]:9200" />
