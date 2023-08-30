@@ -3,8 +3,7 @@ This document provides instructions on how to configure and integrate the Elasti
 
 ## 📦 Repository
 
-https://dev.azure.com/neogrid/Arquitetura/_git/ECK
-
+https://github.com/LucasDiogo96/eck-helm
 
 ## Requirements
 Before proceeding with the installation and integration, ensure you have the following prerequisites:
