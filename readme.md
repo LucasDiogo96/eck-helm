@@ -86,16 +86,20 @@ Example:
 ```
 - {"id":"8MTyyIkBFBK7tlyQpncP","name":"app-key","api_key":"FilNNaw8TqaYdxXvGu7JFA","encoded":"OE1UeXlJa0JGQks3dGx5UXBuY1A6RmlsTk5hdzhUcWFZZHhYdkd1N0pGQQ=="}
 ```
-###2 - Integrate a .NET application:
+### 2 – Integrate your applications
 
-#### Add packages
+
+### .NET:
+
+#### 1 - Add packages
 ```
 dotnet add package Serilog.AspNetCore
 dotnet add package Serilog.Exceptions
 dotnet add package Serilog.Sinks.Elasticsearch
 ```
 
-#### Configure application
+#### 2 - Configure application
+
 ```cs
 using Microsoft.AspNetCore.HttpLogging;
 using Serilog;
@@ -170,6 +174,168 @@ void ConfigureLogging()
 }
 ```
 
+### JAVA
+
+#### 1 - Add dependency
+```
+<dependency>
+    <groupId>com.internetitem</groupId>
+    <artifactId>logback-elasticsearch-appender</artifactId>
+    <version>1.6</version>
+</dependency>
+```
+
+#### 2 - Create a appender.
+
+```java
+public class ElasticSearchAppender extends ch.qos.logback.core.AppenderBase<ch.qos.logback.classic.spi.ILoggingEvent> {
+    private String environment;
+    private String application;
+    private String host;
+    private String apiKey;
+
+    public String getEnvironment() {
+        return environment;
+    }
+
+    public void setEnvironment(String environment) {
+        this.environment = environment;
+    }
+
+    public String getApplication() {
+        return application;
+    }
+
+    public void setApplication(String application) {
+        this.application = application;
+    }
+
+    public String getHost() {
+        return host;
+    }
+
+    public void setHost(String host) {
+        this.host = host;
+    }
+
+    public String getApiKey() {
+        return apiKey;
+    }
+
+    public void setApiKey(String apiKey) {
+        this.apiKey = apiKey;
+    }
+
+    private final Logger LOGGER = Logger.getLogger(ElasticSearchAppender.class.getName());
+    public final SimpleDateFormat ISO_8601_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
+
+    @Override
+    protected void append(ch.qos.logback.classic.spi.ILoggingEvent eventObject) {
+        try {
+            // Create a map to hold log event data
+            Map<String, Object> loggingEvent = new LinkedHashMap<String, Object>();
+
+            // Populate log event data
+            loggingEvent.put("_level", eventObject.getLevel().toString());
+            loggingEvent.put("message", eventObject.getFormattedMessage());
+            loggingEvent.put("logger", eventObject.getLoggerName());
+            loggingEvent.put("hostName", InetAddress.getLocalHost().getHostName());
+            loggingEvent.put("hostAddress", InetAddress.getLocalHost().getHostAddress());
+            loggingEvent.put("@timestamp", ISO_8601_FORMAT.format(new Date(eventObject.getTimeStamp())));
+
+            // Check if the log event has an associated exception
+            if (eventObject.getThrowableProxy() != null) {
+                loggingEvent.put("errorType", eventObject.getThrowableProxy().getClassName());
+                loggingEvent.put("errorMessage", eventObject.getThrowableProxy().getMessage());
+                loggingEvent.put("stackTrace", getTrace(eventObject.getThrowableProxy().getStackTraceElementProxyArray()));
+            }
+
+            // Construct the URL for the Elasticsearch endpoint
+            URL url = new URL(this.getHost() + "/" + this.getIndexName() + "/_doc");
+
+            // Open a connection to the Elasticsearch endpoint
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("POST");
+            connection.setDoOutput(true);
+
+            // Set headers for the HTTP request
+            connection.setRequestProperty("Content-Type", "application/json");
+            connection.setRequestProperty("Authorization", "ApiKey " + this.getApiKey());
+
+            // Convert log event data to JSON payload
+            String jsonPayload = createJsonPayload(loggingEvent);
+
+            // Send JSON payload to the Elasticsearch endpoint
+            OutputStream os = connection.getOutputStream();
+            os.write(jsonPayload.getBytes());
+            os.flush();
+
+            // Get the HTTP response code
+            int responseCode = connection.getResponseCode();
+            if (responseCode >= 400) {
+                LOGGER.log(Level.SEVERE, "Unable to send log to elastic. Response code: " + responseCode);
+            }
+
+            // Disconnect the connection
+            connection.disconnect();
+        } catch (IOException e) {
+            LOGGER.log(Level.SEVERE, "Error sending log to elastic", e);
+        }
+    }
+
+
+    private String getIndexName() {
+        // Get the current date in "yyyy-MM-dd" format
+        String currentDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+
+        // Generate the index name using application, environment, and current date
+        // The format is: application-environment-currentdate (e.g., myapp-prod-2023-08-29)
+        String indexName = String.format("%s-%s-%s", this.getApplication(), this.getEnvironment(), currentDate).toLowerCase();
+
+        return indexName;
+    }
+
+
+    private ArrayList<String> getTrace(StackTraceElementProxy[] stack) {
+        ArrayList<String> trace = new ArrayList<String>();
+        for (int i = 0; i < stack.length; i++) {
+            // Get the formatted string representation of the current stack trace element
+            String formattedStackTrace = stack[i].getSTEAsString();
+            trace.add(formattedStackTrace);
+        }
+        return trace;
+    }
+
+
+    private String createJsonPayload(Map<String, Object> event) {
+        Gson objectMapper = new Gson();
+        try {
+            return objectMapper.toJson(event);
+        } catch (Exception e) {
+            e.printStackTrace(); // Handle or log the exception as needed
+            return null;
+        }
+    }
+}
+
+```
+#### 3 - Add the logback
+
+``` java
+<configuration>
+    <appender name="ELASTIC" class="com.neogrid.ngrepository.ElasticSearchAppender" >
+        <param name="environment" value="[Environment]" />
+        <param name="application" value="[Application]" />
+        <param name="host" value="http://[ELASTIC-IP]:9200" />
+        <param name="apiKey" value="[APIKEY]" />
+    </appender>
+    <root level="INFO">
+        <appender-ref ref="ELASTIC"/>
+    </root>
+</configuration>
+```
+
+
 Make sure to replace [ELASTIC-IP] with the actual Elastic Search Load Balancer IP, and [ID] with your API Key ID, and [APIKEY] with the respective API Key.
 
 
@@ -197,3 +363,6 @@ https://github.com/elastic/cloud-on-k8s/blob/main/README.md
 
 - Elastic CO:
 https://www.elastic.co/guide/en/cloud-on-k8s/2.8/index.html
+
+- Helm 
+https://helm.sh/docs/intro/install/
